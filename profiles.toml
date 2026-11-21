@@ -1,0 +1,22 @@
+# Build profile of the public working draft.
+#
+#   python compile.py --profiles-file profiles.toml --profile github-wd --output-dir <folder>
+#
+# HTML only: no ISO cover page, no boilerplate, no PDF or Word file. The status line of the page
+# comes from bikeshed/header.bs ("Working Draft").
+
+[profiles.github-wd]
+_description = "Public working draft (GitHub Pages): HTML only, no ISO cover or boilerplate"
+number_equations = true
+highlight_keywords = true
+validate_refs = true
+check_orphan_refs = true
+figure_table_tooltips = true
+syntax_tooltips = true
+# what an ISO build would add; the draft must not have any of it
+inject_boilerplate = false
+cover_page = false
+front_pages = false
+iso_docx = false
+pdf = false
+pwa = false

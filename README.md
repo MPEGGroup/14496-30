@@ -25,10 +25,23 @@ to read, review and contribute to.
 | `bikeshed/images/` | the figures |
 | `bikeshed/header.bs` | the title, status and abstract of the draft |
 | `specbuild.toml` | the settings of the build |
+| `profiles.toml` | the build profile `github-wd` (HTML only, no ISO cover or boilerplate) |
 
 The text is written in [Bikeshed](https://speced.github.io/bikeshed/). A paragraph is a plain
 line of text; `<a href="#…">` is a cross-reference, and a formula is written between `\(` and `\)`.
 Clause numbers are generated, not typed. The site on GitHub Pages is built from these files.
+
+## Building the site
+
+The page is built with the editors' build tool (Bikeshed underneath), which is not part of this
+repository yet:
+
+```
+python compile.py --profiles-file profiles.toml --profile github-wd --output-dir <folder>
+```
+
+The result is published on the `gh-pages` branch. A pull request needs no build: the editors build
+and publish after merging.
 
 ## Status
 
