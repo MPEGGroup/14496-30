@@ -1,0 +1,25 @@
+spec_name = "14496-30"
+spec_full_name = "ISO/IEC 14496-30 - Information technology — Coding of audio-visual objects — Part 30: Timed text and other visual overlays in ISO base media file format"
+bikeshed_dir = "bikeshed"
+toc_depth = 4
+caption_numbering = "document"
+docx_contents_title = "Contents"
+toc_style = "flat"
+toc_number_width_pt = 36.0
+sdl_files = [
+    "web_video_text_tracks_webvtt.bs",
+]
+docx_code_style = "Code"
+docx_page_sections = [
+  { from = "main-title", format = "decimal", start = 1 },
+]
+specbuild_version = "0.3.21"
+
+[standards]
+flavor = "iso"
+docnumber = "14496-30"
+
+[theme]
+page_size = "letter"
+caption_label_separator = " — "
+

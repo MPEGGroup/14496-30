@@ -1,0 +1,56 @@
+<h2 class="no-num" id="3-terms-definitions-and-abbreviated-terms">3 Terms, definitions and abbreviated terms</h2>
+
+
+<h3 class="no-num" id="3-1-terms-and-definitions">3.1 Terms and definitions</h3>
+
+For the purposes of this document, the following terms and definitions apply.
+
+ISO and IEC maintain terminological databases for use in standardization at the following addresses:
+
+<ul>
+  <li>ISO Online browsing platform: available at <a href="https://www.iso.org/obp/ui">https://www.iso.org/obp</a></li>
+  <li>IEC Electropedia: available at <a href="http://www.electropedia.org/">http://www.electropedia.org/</a></li>
+</ul>
+
+<dl>
+<dt class="term"><span class="term-number">3.1.1</span><dfn noexport id="term-3-1-1">timed text document</dfn></dt>
+<dd>file-based representation of textual content, possibly XML, used to produce timed text streams and possibly representing timed text track samples</dd>
+<dt class="term"><span class="term-number">3.1.2</span><dfn noexport id="term-3-1-2">timed text stream</dfn></dt>
+<dd>stream of content, which when decoded results in textual content, possibly containing internal timing values, to be processed at a given presentation time and for a certain duration </dd>
+<dt class="term"><span class="term-number">3.1.3</span><dfn noexport id="term-3-1-3">subtitle stream</dfn></dt>
+<dd>timed text stream potentially also presenting images</dd>
+<dt class="term"><span class="term-number">3.1.4</span><dfn noexport id="term-3-1-4">internal timing value</dfn></dt>
+<dd>value contained in the payload of a timed text stream sample representing a time </dd>
+</dl>
+
+<div class="example" data-word-style="Example">
+EXAMPLE	A start time, an end time, or a duration, corresponding to a timed behaviour of a part or the whole of the sample.
+</div>
+
+<dl>
+<dt class="term"><span class="term-number">3.1.5</span><dfn noexport id="term-3-1-5">timed text track</dfn></dt>
+<dd>ISOBMFF representation of a timed text stream</dd>
+<dt class="term"><span class="term-number">3.1.6</span><dfn noexport id="term-3-1-6">subtitle track</dfn></dt>
+<dd>ISOBMFF representation of a subtitle stream</dd>
+</dl>
+
+
+<h3 class="no-num" id="3-2-abbreviated-terms">3.2 Abbreviated terms</h3>
+
+<table class="layout" style="font-size:11pt">
+  <colgroup><col style="width:13.65%"><col style="width:86.35%"></colgroup>
+  <tbody>
+  <tr>
+    <td data-word-style="Table body (+)"><strong>TTML</strong></td>
+    <td data-word-style="Table body (+)">Timed Text Markup Language</td>
+  </tr>
+  <tr>
+    <td data-word-style="Table body (+)"><strong>WebVTT</strong></td>
+    <td data-word-style="Table body (+)">Web Video Text Tracks</td>
+  </tr>
+  <tr>
+    <td data-word-style="Table body (+)"><strong>ISOBMFF</strong></td>
+    <td data-word-style="Table body (+)">ISO base media file format</td>
+  </tr>
+  </tbody>
+</table>

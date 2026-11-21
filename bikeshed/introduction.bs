@@ -1,0 +1,14 @@
+<h2 class="no-num" id="introduction" style="page-break-before:always" data-word-style="Intro Title">Introduction</h2>
+
+This document defines a storage format based on, and compatible with, the ISO base media file format (ISO/IEC 14496-12), which is used by the MP4 file format (ISO/IEC 14496-14) and the Motion JPEG 2000 file format (ISO/IEC 15444-3) among others. This document enables timed text and subtitle streams to
+
+<ul>
+  <li>be used in conjunction with other media streams, such as audio or video;</li>
+  <li>be used in an MPEG-4 systems environment, if desired;</li>
+  <li>be formatted for delivery by a streaming server, using hint tracks; and</li>
+  <li>inherit all the use cases and features of the ISO base media file format on which MP4 and MJ2 are based.</li>
+</ul>
+
+<div class="page-break" style="break-after:page"></div>
+
+<p class="main-title" data-word-style="zzSTDTitle" style="font-size:16pt;font-family:'Cambria';font-weight:bold;margin-top:20pt;margin-bottom:38pt">Information technology — Coding of audio-visual objects — Part 30: Timed text and other visual overlays in ISO base media file format</p>

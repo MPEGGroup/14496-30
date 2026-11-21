@@ -1,0 +1,8 @@
+# the built site is published on the gh-pages branch, not kept here
+*_Spec/
+index.html
+index.bs
+index.bs.map.json
+*.pdf
+*.docx
+.DS_Store

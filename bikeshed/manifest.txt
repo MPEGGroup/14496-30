@@ -1,0 +1,19 @@
+[front-matter]
+toc
+
+[files]
+header.bs
+foreword.bs
+introduction.bs
+scope.bs
+normative_references.bs
+terms_definitions_and_abbreviated_terms.bs
+general_definitions.bs
+timed_text_markup_language_ttml.bs
+web_video_text_tracks_webvtt.bs
+
+# --- Annexes ---
+annex_a_captioning_information_embedded_in_a_media_stream_of_another.bs
+
+# --- Bibliography ---
+bibliography.bs

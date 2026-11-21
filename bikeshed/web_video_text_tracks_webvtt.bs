@@ -1,0 +1,246 @@
+<h2 class="no-num" id="6-web-video-text-tracks-webvtt">6 Web Video Text Tracks (WebVTT)</h2>
+
+
+<h3 class="no-num" id="6-1-general">6.1 General</h3>
+
+This clause defines how documents based on W3C Community Group Report, <em>WebVTT</em> are carried in files based on the ISO base media file format.
+
+WebVTT text content in tracks is encoded using UTF-8, and the data-type <code>boxstring</code> indicates an array of UTF-8 bytes, to fill the enclosing box, with neither a leading character count nor a trailing null terminator.
+
+Each WebVTT cue, as defined in W3C Community Group Report, <em>WebVTT</em>, is stored de-constructed, partly to emphasize that the textual timestamps one would normally find in a WebVTT file do <em>not</em> determine presentation timing; the ISO file structures do. It also separates the text of the actual cue from the structural information that the WebVTT file carries (positioning, timing, and so on). WebVTT cues are stored in a typical ISO boxed structured approach to enable interfacing an ISO file reader with a WebVTT renderer without the need to serialize the sample content as WebVTT text and to parse it again.
+
+Boxes shall not contain trailing CR or LF characters, or trailing CRLF sequences (where ‘trailing’ means that they occur last in the payload of the box).
+
+
+<h3 class="no-num" id="6-2-layout">6.2 Layout</h3>
+
+Subclause 4.1 defines the general layout behaviour for timed text and subtitle tracks, which is applicable to WebVTT tracks.
+
+
+<h3 class="no-num" id="6-3-timing">6.3 Timing</h3>
+
+Following the general timing processing defined in 4.2, each cue shall be passed to the WebVTT renderer at the time from the time-to-sample table, as mapped by the edit list (if any). The times derived for a sample from the durations in the time-to-sample table reflect the start and end-time of all cues in that sample. All samples are sync samples; the sync sample table is not used.
+
+If there is internal timing value in a cue, each sample must be labelled with the VTT time that corresponds to the sample start time on the VTT time line.
+
+<div class="note" data-word-style="Note">
+NOTE 1	This enables reconstructing a correct internal timing value, when the time-to-sample table is edited.
+</div>
+
+<div class="note" data-word-style="Note">
+NOTE 2	Internal timestamps within the cue that precede this current time would be already “:past” at the start of the sample, for example.
+</div>
+
+<p data-word-style="Body Text Indent">When a file writer identifies a cue with indefinite duration, since the cue has no end-time, setting an accurate value for the sample duration might not be possible. In that case, the file writer may rely on tools defined in ISO/IEC 14496-12. If the sample is the last one in the track, ISO/IEC 14496-12:2015, 8.6.1.1 permits setting a zero duration for that sample. If the sample is not the last one in the track, ISO/IEC 14496-12 defines cases when a sample duration can be extended by subsequent information: either using redundant samples (see ISO/IEC 14496-12:2015, 8.6.4.1); or in fragmented tracks, if the sample is the last in the fragment using the <code>TrackFragmentDecodeTime</code> box of the next fragment (see ISO/IEC 14496-12:2015, 8.8.12.1). If such sample duration extension is used, setting an accurate duration is not needed and the file writer may choose an arbitrary short duration for the sample.</p>
+
+<p data-word-style="Body Text Indent">Additionally, if the sample containing a cue with indefinite duration is not the last one, since every sample in a WebVTT track is a sync sample, file writers shall duplicate the indefinite cue content in all subsequent samples.</p>
+
+
+<h3 class="no-num" id="6-4-track-format">6.4 Track format</h3>
+
+WebVTT streams shall be carried as timed text tracks, and as a consequence according to ISOBMFF, use the '<code>text</code>' media handler type, and the associated media header, sample entry, and sample group base class.
+
+
+<h3 class="no-num" id="6-5-sample-entry-format">6.5 Sample entry format</h3>
+
+WebVTT streams shall use the WVTTSampleEntry format.
+
+In the sample entry, a WebVTT configuration box must occur, carrying exactly the lines of the WebVTT file header, i.e. all text lines up to but excluding the ‘two or more line terminators’ that end the header.
+
+<div class="note" data-word-style="Note">
+NOTE	Other boxes may be defined for the sample entry in future revisions of this document (e.g. carrying optional CSS style sheets, font information, and so on).
+</div>
+
+A WebVTT source label box should occur in the sample entry. It contains a suitable string identifier of the ‘source’ of this WebVTT content, such that if a file is made by editing together two pieces of content, the timed text track would need two sample entries because this source label differs. A URI is recommended for the source label; however, the URI is not interpreted and it is not required there be a resource at the indicated location when a URL form is used.
+
+<div class="note" data-word-style="Note">
+NOTE	The '<code>codecs</code>' parameter for WebVTT streams as defined in RFC 6381 uses only one element, the four-character code of the sample description entry for the stream, i.e. '<code>wvtt</code>'.
+</div>
+
+```sdl
+class WebVTTConfigurationBox extends Box('vttC') {
+   boxstring   config;
+}
+class WebVTTSourceLabelBox extends Box('vlab') {
+   boxstring   source_label;
+}
+class WVTTSampleEntry() extends PlainTextSampleEntry (‘wvtt’){
+   WebVTTConfigurationBox   config;
+   WebVTTSourceLabelBox     label;   // recommended
+   BitRateBox               bitrate;
+                               // optional, as defined in ISO/IEC 14496-12
+}
+```
+
+
+<h3 class="no-num" id="6-6-sample-format">6.6 Sample format</h3>
+
+The character replacements as specified in step 1 of the WebVTT parsing algorithm, may be applied before VTT data is stored in this format. Readers should be prepared to apply these replacements if integrated directly with a WebVTT renderer.
+
+Each sample is either
+
+<ul class="wl">
+  <li data-word-style="List Number 1" data-label="a)" style="margin-left:0pt;--wl-hang:20.15pt">exactly one VTTEmptyCueBox box (representing a period of non-zero duration in which there is no cue data), or</li>
+  <li data-word-style="List Number 1" data-label="b)" style="margin-left:0pt;--wl-hang:20.15pt">one or more VTTCueBox boxes that share the same start time and end time, each containing the following boxes. Only the CuePayloadBox is mandatory, all others are optional. A sample containing cue boxes may also contain zero or more VTTAdditionalTextBox boxes, interleaved between VTTCueBox boxes and carrying any other text in between cues, in the order required by the processing of the additional text, if any.</li>
+</ul>
+
+The VTTCueBox boxes must be in presentation order, i.e. if imported from a WebVTT file, the cues in any given sample must be in the order they were in the WebVTT file.
+
+It is recommended that the contents of the VTTCueBox boxes occur in the order shown in the syntax, but the order is not mandatory.
+
+If a cue has WebVTT Cue Settings, they are placed into a CueSettingsBox without the leading space that separates timing and settings.
+
+When a WebVTT source label box is present in the sample entry and a cue is written into multiple samples, it must be represented in a set of VTTCueBoxes all containing the same source_ID. All VTTCueBoxes that originate from the same VTT cue must have the same source_ID, and that source_ID must be unique within the set of cues that share the same source_label. This means that when stepping from one sample to another (possibly after a seek, as well as during sequential play), a match of source_ID under the same source_label is diagnostic that the same cue is still active. Cues with no CueSourceIDBox are independent from all other cues; a source ID may be assigned to all cues.
+
+When there is no WebVTT source label in the sample entry, there must be no CueSourceIDBox in the associated samples. In this way the presence of the WebVTT source label indicates whether source IDs are assigned to cues split over several samples, or not.
+
+When a cue has internal timing values (i.e. WebVTT cue timestamp as defined in W3C Community Group Report, <em>WebVTT</em>) then each VTTCueBox must contain a CueTimeBox which gives the VTT timestamp associated with the start time of sample. When the cue content of a sample is passed to a VTT renderer, timestamps within the cues in the sample must be interpreted relative to the time given in this box, or adjusted considering this time and the sample start time.
+
+The CuePayloadBox must contain exactly one WebVTT Cue. Other text, such as WebVTT Comments are placed into VTTAdditionalText boxes.
+
+<div class="note" data-word-style="Note">
+NOTE	The sample entry code is '<code>vttC</code>'; in contrast the VTTCueBox is '<code>vttc</code>' and their container is also different.
+</div>
+
+In the CuePayloadBox there must be no blank lines (but there may be multiple lines).
+
+```sdl
+aligned(8) class VTTCueBox extends Box('vttc') {
+   CueSourceIDBox()   // optional source ID
+   CueIDBox();        // optional
+   CueTimeBox();      // optional current time indication
+   CueSettingsBox();  // optional, cue settings
+   CuePayloadBox();   // the (mandatory) cue payload lines
+};
+class CueSourceIDBox extends Box('vsid') {
+   int(32)   source_ID;   // when absent, takes a special 'always unique' value
+}
+class CueTimeBox extends Box('ctim') {
+   boxstring   cue_current_time;
+}
+class CueIDBox extends Box('iden') {
+   boxstring   cue_id;
+}
+class CueSettingsBox extends Box('sttg') {
+   boxstring   settings;
+}
+class CuePayloadBox extends Box('payl') {
+   boxstring   cue_text;
+}
+// These next two are peers to the VTTCueBox
+aligned(8) class VTTEmptyCueBox extends Box('vtte') {
+   // currently no defined contents, box must be empty
+};
+class VTTAdditionalTextBox extends Box('vtta') {
+   boxstring   cue_additional_text;
+}
+```
+
+Free space boxes and unrecognized boxes in any sample, or within the VTTCueBox or VTTEmptyCueBox may be present and should be ignored.
+
+
+<h3 class="no-num" id="6-7-converting-to-or-from-a-webvtt-text-file">6.7 Converting to or from a WebVTT text file</h3>
+
+
+<h4 class="no-num" id="6-7-1-general">6.7.1 General</h4>
+
+This subclause connects the box structure to the parsing process for a WebVTT file as defined in W3C Community Group Report, <em>WebVTT</em>, Section 5. Underlined terms here correspond to defined terms in that report.
+
+
+<h4 class="no-num" id="6-7-2-importing-a-webvtt-file-into-the-iso-base-media-file-format">6.7.2 Importing a WebVTT file into the ISO base media file format</h4>
+
+Prior to import, the character replacements as specified in step 1 of the WebVTT parsing algorithm, may be applied.
+
+The initial part of the file, from the first characters (the string ‘WEBVTT’), up to but not including the ‘two or more line terminators’ are placed into the WebVTTConfigurationBox.
+
+The WebVTT Cue Timings of each WebVTT Cue are processed to form a set of samples that are contiguous and non-overlapping in time as follows:
+
+<p data-word-style="Body Text indent 1" style="margin-left:20.15pt">&#49;)	The start time offset of the cue sets the sample decode time. The end time offset of the cue is used to set the sample duration.</p>
+
+<p data-word-style="Body Text indent 1" style="margin-left:20.15pt">&#50;)	If the start time offset of the cue is later than the decoding time plus the decoding duration of the previous sample, then a VTTEmptyCueBox is used to fill the empty time;</p>
+
+<p data-word-style="Body Text indent 1" style="margin-left:20.15pt">&#51;)	If the start time offset of the cue is earlier than the decoding time plus the decoding duration of the previous sample, then the cues overlap, and the earlier cue is split into a set of equivalent cues, such that for every start time offset and end time offset, there is a sample start or end time.</p>
+
+<p data-word-style="Body Text indent 1" style="margin-left:20.15pt">&#52;)	A source_ID is generated for each cue, and placed into the samples in at least all the cues that are represented by more than one VTTCueBox.</p>
+
+<p data-word-style="Body Text indent 1" style="margin-left:20.15pt">&#53;)	Each WebVTT Comment is placed in a VTTAdditionalTextBox. This should be placed either (a) in the sample containing the first occurrence of the following WebVTT Cue, before that cue or (b) in the last sample associated with a given source label, after the last cue.</p>
+
+Each split cue is then decomposed:
+
+<p data-word-style="Body Text indent 1" style="margin-left:20.15pt">&#49;)	The WebVTT Cue Identifier, if it exists, is placed in a CueIDBox;</p>
+
+<p data-word-style="Body Text indent 1" style="margin-left:20.15pt">&#50;)	The WebVTT Cue Timings are removed, as they are now represented in the time to sample mapping of the file;</p>
+
+<p data-word-style="Body Text indent 1" style="margin-left:20.15pt">&#51;)	If the cue contains WebVTT cue timestamp, then a CueTimeBox is placed into the VTTCueBox;</p>
+
+<p data-word-style="Body Text indent 1" style="margin-left:20.15pt">&#52;)	The WebVTT Cue Settings, if they exist, are placed into a CueSettingsBox;</p>
+
+<p data-word-style="Body Text indent 1" style="margin-left:20.15pt">&#53;)	The Cue Payload, without the following two or more line terminators, is placed into the CuePayload box.</p>
+
+
+<h4 class="no-num" id="6-7-3-exporting-a-webvtt-file-from-the-iso-base-media-file-format">6.7.3 Exporting a WebVTT file from the ISO base media file format</h4>
+
+To form a WebVTT file from the track, the file is started with the contents of the WebVTTConfigurationBox, followed by two line terminators.
+
+The cue boxes of each sample are processed separately. Each cue box is marked with its start and end time, derived from the sample times (including the edit list).
+
+The ‘continuation cues’ (adjacent samples that use the same sample entry and containing cues that have the same source_ID) may be merged with their preceding matching cue or continuation cue, and the end time offset set to the end time of the later continuation cue.
+
+The internal timing values of each cue are adjusted to be relative to the start time offset.
+
+Each cue is then written to the file: the optional WebVTT Cue Identifier from the CueIDBox, if it exists, followed by a line terminator; the WebVTT Timings, computed as above; the WebVTT Cue Settings from the CueSettings box, if it exists; and the Cue Payload from the CuePayload box. Each WebVTT Cue so formed are separated from the next by two or more line terminators. VTTEmptyCueBoxes are discarded.
+
+
+<h3 class="no-num" id="6-8-example">6.8 Example</h3>
+
+
+<h4 class="no-num" id="6-8-1-source-file">6.8.1 Source file</h4>
+
+```
+WEBVTT
+
+1
+00:11.000 --> 00:12.500 align:start line:10
+<v Roger Bingham>We are in New York City.
+We are looking straight down 5th Avenue.
+
+00:13.000 --> 00:18.000
+<v Neil DeGrass Tyson>Didn't you already say that?
+
+2
+00:17.000 --> 00:20.000
+Testing... <00:17.350>One... <00:18.125>Two...
+```
+
+
+<h4 class="no-num" id="6-8-2-imported-format">6.8.2 Imported format</h4>
+
+For the example above, the cues might be represented by the following samples:
+
+<em>Sample 0, duration 11.000</em>
+
+<p data-word-style="Body Text indent 1" style="margin-left:20.15pt;margin-bottom:12pt;font-size:11pt"><code>[emptycue]</code></p>
+
+<em>Sample 1, duration 1.500</em>
+
+<p data-word-style="Body Text indent 1" style="margin-left:20.15pt;margin-bottom:12pt;font-size:11pt"><code>[cue, payload=”&lt;v Roger Bingham&gt;We are in New York City.</code></p>
+
+<p data-word-style="Body Text indent 1" style="margin-left:20.15pt;margin-bottom:12pt;font-size:11pt"><code>We are looking straight down 5th Avenue.” settings=”align:start line:10”]</code></p>
+
+<em>Sample 2, duration 0.500</em>
+
+<p data-word-style="Body Text indent 1" style="margin-left:20.15pt;margin-bottom:12pt;font-size:11pt"><code>[emptycue]</code></p>
+
+<em>Sample 3, duration 4.000</em>
+
+<p data-word-style="Body Text indent 1" style="margin-left:20.15pt;margin-bottom:12pt;font-size:11pt"><code>[cue, payload=”&lt;v Neil DeGrass Tyson&gt;Didn't you already say that?” source_id=0]</code></p>
+
+<em>Sample 4, duration 1.000</em>
+
+<p data-word-style="Body Text indent 1" style="margin-left:20.15pt;margin-bottom:12pt;font-size:11pt"><code>[cue, payload=”&lt;v Neil DeGrass Tyson&gt;Didn't you already say that?” source_id=0]</code></p>
+
+<p data-word-style="Body Text indent 1" style="margin-left:20.15pt;margin-bottom:12pt;font-size:11pt"><code>[cue, id=2, payload=”Testing... &lt;00:17.350&gt;One... &lt;00:18.125&gt;Two...”, source_id=23, cue_current_time=”00:17.000”]</code></p>
+
+<em>Sample 5, duration 2.000</em>
+
+<p data-word-style="Body Text indent 1" style="margin-left:20.15pt;margin-bottom:12pt;font-size:11pt"><code>[cue, id=2, payload=”Testing... &lt;00:17.350&gt;One... &lt;00:18.125&gt;Two...”, source_id=23, cue_current_time=”00:18.000”]</code></p>

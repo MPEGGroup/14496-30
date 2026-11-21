@@ -1,0 +1,13 @@
+<h2 class="no-num" id="2-normative-references">2 Normative references</h2>
+
+The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.
+
+<ul class="bibliography">
+  <li data-word-style="RefNorm">W3C Recommendation, Timed Text Markup Language 1.0, Second Edition, <a href="https://www.w3.org/TR/ttml1/">https://www.w3.org/TR/ttml1/</a></li>
+  <li data-word-style="RefNorm">ISO/IEC 14496-12:2015, Information technology — Coding of audio-visual objects — Part 12: ISO base media file format</li>
+  <li data-word-style="RefNorm">W3C Community Group Report, <em>WebVTT</em>, <a href="http://www.w3.org/2013/07/webvtt.html">http://www.w3.org/2013/07/webvtt.html</a></li>
+  <li data-word-style="RefNorm">3GPP TS 26.245:2017, Transparent end-to-end Packet switched Streaming Service (PSS); Timed text format</li>
+  <li data-word-style="RefNorm">IETF RFC 2141, URN Syntax</li>
+  <li data-word-style="RefNorm">IETF RFC 3986, Uniform Resource Identifier (URI): Generic Syntax</li>
+  <li data-word-style="RefNorm">IETF RFC 6381, MIME Codecs and Profiles</li>
+</ul>

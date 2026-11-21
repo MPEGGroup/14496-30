@@ -1,0 +1,63 @@
+<pre class='metadata'>
+Title: ISO/IEC 14496-30 - Information technology — Coding of audio-visual objects — Part 30: Timed text and other visual overlays in ISO base media file format
+Org: ISO
+Status: WD
+Text Macro: LONGSTATUS Working Draft
+Boilerplate: copyright no
+Date: 2026-10-21
+Text Macro: DATE 21 October 2026
+Work Status: exploring
+Shortname: iso-iec-14496-30-information-technology-coding-of-audio-visual-objects-part-30-timed-text-and-other-visual-overlays-in-iso-base-media-file-format
+Level: 1
+Abstract: Working draft of ISO/IEC 14496-30, Timed text and other visual overlays in ISO base media file format. This is an editors' working draft. It is not the official text and does not replace ISO/IEC 14496-30 as published by ISO/IEC.
+Markup Shorthands: markdown yes
+</pre>
+
+<link rel="stylesheet" href="css/custom.css">
+<link rel="stylesheet" href="css/print.css" media="print">
+<style>
+/* Numbered lists from Word: the label (a), 1), 1.2 … comes from data-label, so a list restarts and
+   continues as it did in the source, and keeps its indentation. */
+ol.wl, ul.wl { list-style: none; padding-left: 0; }
+.wl > li { position: relative; padding-left: var(--wl-hang, 1.5em); }
+.wl > li::before { content: attr(data-label); position: absolute; left: 0; }
+
+/* An equation written as text in the source keeps its tabs and line breaks. */
+p.equation-text { white-space: pre-wrap; tab-size: 4; }
+
+/* Bibliography: the entry number [1] is in the text, so no bullet; later lines hang under the entry. */
+ul.bibliography { list-style: none; padding-left: 0; }
+ul.bibliography > li { padding-left: 3em; text-indent: -3em; margin-bottom: .3em; }
+
+/* Terms and definitions: the number, the term and the definition each on their own line. */
+dt.term .term-number { display: block; font-weight: normal; }
+dt.term dfn { display: block; font-style: normal; font-weight: bold; }
+
+/* Footnotes: a small reference mark in the text and the notes listed under their clause. */
+sup.footnote-ref { font-size: 75%; line-height: 0; }
+div.footnotes { border-top: 1px solid #999; margin-top: 1.5em; padding-top: .3em; font-size: 85%; }
+div.footnotes ol { margin: 0; padding-left: 1.6em; }
+
+/* The document title repeated above the first clause. */
+p.main-title { font-weight: bold; font-size: 130%; margin: 1.2em 0 .2em; }  /* the paragraph's own look, from Word, overrides this */
+
+/* A table without borders only lays text out: no grid, no header look, no highlighting. */
+table.layout { border-collapse: collapse; border: none; }
+table.layout td, table.layout th { border: none; background: none; padding: .1em .8em .1em 0; font-weight: normal; vertical-align: top; }
+table.layout tr:hover td { background: none; }
+
+/* Section numbers in the table of contents: one size at every depth. */
+.toc .secno { font-size: 100% !important; }
+</style>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['$$', '$$']],
+  },
+  chtml: { scale: 1.0, mtextInheritFont: true }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<!-- Standards flavor: cmaf -->

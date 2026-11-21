@@ -1,0 +1,76 @@
+<h2 class="no-num" id="4-general-definitions">4 General definitions</h2>
+
+
+<h3 class="no-num" id="4-1-layout">4.1 Layout</h3>
+
+This subclause defines common layout behaviour for processing of timed text or subtitle samples.
+
+Unless specified by an embedding environment (e.g. an HTML page), the track header box information (i.e. <code>width</code>, <code>height</code>) shall be used to size the subtitle or timed text track content with respect to the associated track(s) as follows:
+
+<ul class="wl">
+  <li data-word-style="List Number 1" data-label="1)" style="margin-left:0pt;--wl-hang:20.15pt">If the flag <code>track_size_is_aspect_ratio</code> is not set, and the track <code>width</code> and <code>height</code> are set to values different from 0, the size of the timed text track shall be the track <code>width</code> and <code>height</code>.</li>
+  <li data-word-style="List Number 1" data-label="2)" style="margin-left:0pt;--wl-hang:20.15pt">If the flag <code>track_size_is_aspect_ratio</code> is not set, and the track <code>width</code> and <code>height</code> are set to 0, the size of the timed text track shall match the reference size.</li>
+  <li data-word-style="List Number 1" data-label="3)" style="margin-left:0pt;--wl-hang:20.15pt">If the flag <code>track_size_is_aspect_ratio</code> is set, it indicates that the content of the track was authored to an aspect ratio equal to the track header <code>width</code>/<code>height</code>. In this case, neither <code>width</code> nor <code>height</code> shall be 0. The timed text track shall be sized to the maximum size that will fit within the reference size and should equal its width or height, while preserving the indicated aspect ratio.</li>
+</ul>
+
+If only one track is associated with the timed text track, the reference size is the size of the associated track. If multiple tracks are associated, the reference size is the size of the composition of tracks as described by the matrices in the track headers of the associated tracks.
+
+Upon file creation, the <code>width</code> and <code>height</code> of the subtitle or timed text track should be set appropriately according to the <code>width</code> and <code>height</code> of the associated track(s), as declared in their track header. A typical usage is that the timed text or subtitle track has the same <code>width</code> and <code>height</code> as an associated visual track, and no translation.
+
+If the track it is supposed to overlay is not stored in an ISOBMFF file or if it is stored as a track in a different ISOBMFF file, the values 0x0 may be used; or the <code>track_size_is_aspect_ratio</code> flag may be used and the <code>width</code> and <code>height</code> set to the desired aspect ratio.
+
+For some timed text documents, the region as defined by the <code>width</code>, <code>height</code> and <code>track_size_is_aspect_ratio</code> corresponds to the visual area filled by the rendering of the timed text documents.
+
+When the track width and height attributes are set to a value different from 0 and the <code>track_size_is_aspect_ratio_flag</code> is not used, additional region positioning using the translation values tx and ty from the track header matrix, as defined for 3GPP Timed Text tracks, may be used (3GPP TS 26.245:2017, 5.7 defines the text track region using tx, ty, and the track width and height).
+
+<div class="note" data-word-style="Note">
+NOTE 1	The 3GPP region is not the same as a WebVTT region.
+</div>
+
+Unless specified by an embedding environment (e.g. an HTML page), visually composed tracks including video, subtitle, and timed text shall be stacked or layered using the ‘layer’ value in the track header box. The layer field provides the same functionality as z-index in TTML.
+
+<div class="note" data-word-style="Note">
+NOTE 2	Timed text and subtitle tracks are normally stacked in front of the associated visual track(s).
+</div>
+
+
+<h3 class="no-num" id="4-2-timing">4.2 Timing</h3>
+
+This subclause defines common timing behaviour for processing of timed text or subtitle samples.
+
+The general processing of timed text or subtitle tracks is that the text content of the sample is delivered to the decoder at the sample decode time, at the latest. The rendering of the sample happens at the presentation time, i.e. taking into account edit lists if any, and for the sample duration, potentially trimmed by the edit list if any.
+
+NOTE	As defined in ISOBMFF, the presentation is driven by the presentation time. The composition time is determined from the presentation time using the edit list (if present), and the sample active at that composition time is then processed. This specification assumes that at a given presentation time, the renderer is provided with the sample and the composition time, both of which correspond to the given presentation time.
+
+However, timed text or subtitle sample data of specific formats may contain internal timing values. Internal timing values may alter the rendering of the sample during its duration as specified by the timed text or subtitle format.
+
+<div class="note" data-word-style="Note">
+NOTE	If an internal timing value does not fall in the time interval corresponding to the sample composition time and sample composition time plus sample duration, the rendering of the sample can be different from the rendering of the same sample data with a composition time such that the internal timing value lies in the associated composition interval.
+</div>
+
+The subclauses defining the storage of specific formats in the ISOBMFF specify how internal timing values relate to the track time or to the sample decode or composition time (see subclauses 5.3 and 6.3). For instance, start or end times may be relative to the start of the sample, or the start of the track.
+
+For sections of the track timeline that have no associated subtitles or timed text content, ‘empty’ samples may be used, as defined for each format, or the duration of the preceding sample extended. Samples with a size of zero are not used.
+
+The <code>timescale</code> field in the media header box should be set appropriately to achieve the desired timing accuracy. It is recommended to be set to the value of the <code>timescale</code> field in the media header box of (one of) the associated track(s).
+
+
+<h3 class="no-num" id="4-3-language">4.3 Language</h3>
+
+Timed text tracks should be marked with a suitable language in the media header box, indicating the audience for whom the track is appropriate. In the case where it is suitable for a single language, the media header must match that declared language. The value ‘mul’ may be used for a multi-lingual text.
+
+
+<h3 class="no-num" id="4-4-resources-shared-by-multiple-samples">4.4 Resources shared by multiple samples</h3>
+
+Common resources, such as images and fonts that are referred to by URLs, may be stored as items in a MetaBox as defined by ISO/IEC 14496-12. These items may be addressed by using the item_name as a relative URL in the timed text sample, as defined by ISO/IEC 14496-12:2015, 8.11.9.
+
+<div class="note" data-word-style="Note">
+NOTE	A derived specification, with its applicable brand, can restrict this use of meta boxes for common items.
+</div>
+
+Fonts not supplied with the content may be already present on the target system(s), or supplied using any suitable supported mechanism (e.g. font streaming as defined in ISO/IEC 14496-18).
+
+
+<h3 class="no-num" id="4-5-associating-timed-text-tracks">4.5 Associating timed text tracks</h3>
+
+Timed text tracks may be explicitly or implicitly associated with other tracks in the file. They are explicitly associated with a track when the timed text track uses a track reference of type '<code>subt</code>' to that track, as defined in ISO/IEC 14496-12, or to a track in the same alternate group. If no '<code>subt</code>' track reference is used, the timed text track is said to be implicitly associated to all tracks in the file. In particular, if track groups are not used, the timed text track is associated to all tracks in the file. Association is used to indicate which track(s) a timed text track is intended to overlay and may be used to determine the desired rendered size when that information is not provided in the track header of the timed text track, as defined in subclause 4.1. Timed text and subtitle tracks may be associated with any type of track, including visual tracks (e.g. video tracks, graphics tracks, image tracks) or audio tracks as determined by some external context.

@@ -1,0 +1,304 @@
+<h2 class="no-num" id="5-timed-text-markup-language-ttml">5 Timed Text Markup Language (TTML)</h2>
+
+
+<h3 class="no-num" id="5-1-general">5.1 General</h3>
+
+This subclause describes how documents based on TTML, as defined by the W3C, and derived specifications (for example SMPTE-TT), are carried in files based on the ISO base media file format. A TTML Track is a track carrying TTML documents, which can be documents that correspond to a specification based on TTML.
+
+
+<h3 class="no-num" id="5-2-layout">5.2 Layout</h3>
+
+Subclause 4.1 defines the general layout behaviour for timed text and subtitle tracks. In particular, this means for TTML tracks that the track width and height provide the spatial extent of the root container, as defined in the TTML Recommendation. Any ‘extent’ attribute declared on the ‘tt’ element in the contained TTML document shall match the track width and height. If the ‘extent’ attribute is not declared on the ‘tt’ element in the contained TTML document, the track header width and height may be set to 0 or to any desired size.
+
+<div class="note" data-word-style="Note">
+NOTE	This is used when the document is authored in a resolution-independent manner (e.g. using percentage layout).
+</div>
+
+Alternatively, when a resolution-independent document has been authored to a specific aspect ratio (whether or not the aspect ratio is explicitly signalled in the document) the <code>track_size_is_aspect_ratio</code> flag may be used to signal the authored aspect ratio. In this case, the track header <code>width</code> and <code>height</code> shall be set to values that indicate the authored aspect ratio (e.g. 16 by 9).
+
+
+<h3 class="no-num" id="5-3-timing">5.3 Timing</h3>
+
+This subclause defines processing of timing information for TTML documents carried in a TTML track. The general timing processing defined in 4.2 applies, but specific aspects are refined in this subclause. Timing processing is defined only for TTML documents in which ttp:timeBase is ‘media’. For other values, timing processing behaviour is undefined and such documents should not be carried in TTML tracks.
+
+When the rendering of a sample happens, the TTML document in the sample is provided to the TTML processor, together with the track composition time T of the sample and the sample composition duration d. The TTML processor then uses the interval \([T, T + d)\) together with the time coordinates \(\{T_i\}\) produced by the “resolve timing” procedure, as defined in TTML, to determine which intermediate synchronic documents (ISDs) to present and for how long. Specifically, track composition time \(t \in [T, T + d)\) results in TTML ISD \(i\) being presented, with \(t \in [T_i, T_{i+1})\).
+
+<div class="note" data-word-style="Note">
+NOTE 1	The fact that time coordinates produced by the TTML processor are interpreted as being on the track composition timeline remains true in the case of segment files, defined in 14496-12. In other words, time coordinates produced by a document stored in a sample of a segment are still relative to time 0 on the track composition timeline and are not relative to the segment start.
+</div>
+
+The above concepts are illustrated in Table <a href="#table-1" data-xref="number">1</a> and Table <a href="#table-2" data-xref="number">2</a>.
+
+<table class="data" id="table-1" style="font-size:10pt">
+  <colgroup><col style="width:10.65%"><col style="width:15.57%"><col style="width:11.68%"><col style="width:62.09%"></colgroup>
+  <caption data-number="1" data-word-style="Table title">Example of a TTML track with six samples</caption>
+  <tbody>
+  <tr>
+    <td style="border-top:1.5pt solid #000;border-left:1.5pt solid #000;border-bottom:1.5pt solid #000;border-right:0.75pt solid #000;text-align:center" data-word-style="Table header"><strong>Sample</strong></td>
+    <td style="border-top:1.5pt solid #000;border-left:0.75pt solid #000;border-bottom:1.5pt solid #000;border-right:0.75pt solid #000;text-align:center" data-word-style="Table header"><strong>Composition <br>time</strong></td>
+    <td style="border-top:1.5pt solid #000;border-left:0.75pt solid #000;border-bottom:1.5pt solid #000;border-right:0.75pt solid #000;text-align:center" data-word-style="Table header"><strong>Duration</strong></td>
+    <td style="border-top:1.5pt solid #000;border-left:0.75pt solid #000;border-bottom:1.5pt solid #000;border-right:1.5pt solid #000;text-align:center" data-word-style="Table header"><strong>Payload</strong></td>
+  </tr>
+  <tr>
+    <td style="border-top:1.5pt solid #000;border-left:1.5pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000" data-word-style="Table body">1</td>
+    <td style="border-top:1.5pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000" data-word-style="Table body">00:00:00</td>
+    <td style="border-top:1.5pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000" data-word-style="Table body">00:30:00</td>
+    <td style="border-top:1.5pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:1.5pt solid #000"><p data-word-style="Table body">&lt;tt&gt;</p><p data-word-style="Table body">&#160;&#160;&lt;body&gt;</p><p data-word-style="Table body">&#160;&#160;&#160;&#160;&lt;div&gt;&lt;p begin="00:01:00" end="00:02:00"&gt;1-2 minutes&lt;/p&gt;&lt;/div&gt;</p><p data-word-style="Table body">&#160;&#160;&lt;/body&gt;</p><p data-word-style="Table body">&lt;/tt&gt;</p></td>
+  </tr>
+  <tr>
+    <td style="border-top:0.75pt solid #000;border-left:1.5pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000" data-word-style="Table body">2</td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000" data-word-style="Table body">00:30:00</td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000" data-word-style="Table body">00:30:00</td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:1.5pt solid #000"><p data-word-style="Table body">&lt;tt&gt;</p><p data-word-style="Table body">&#160;&#160;&lt;body&gt;</p><p data-word-style="Table body">&#160;&#160;&#160;&#160;&lt;div&gt;&lt;p begin="00:31:00" end="00:32:00"&gt;31-32 minutes&lt;/p&gt;&lt;/div&gt;</p><p data-word-style="Table body">&#160;&#160;&lt;/body&gt;</p><p data-word-style="Table body">&lt;/tt&gt;</p></td>
+  </tr>
+  <tr>
+    <td style="border-top:0.75pt solid #000;border-left:1.5pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000" data-word-style="Table body">3</td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000" data-word-style="Table body">01:00:00</td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000" data-word-style="Table body">00:30:00</td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:1.5pt solid #000"><p data-word-style="Table body">&lt;tt&gt;</p><p data-word-style="Table body">&#160;&#160;&lt;body&gt;</p><p data-word-style="Table body">&#160;&#160;&#160;&#160;&lt;div&gt;&lt;p begin="00:00:00" end="04:00:00"&gt;60-150 minutes&lt;/p&gt;&lt;/div&gt;</p><p data-word-style="Table body">&#160;&#160;&lt;/body&gt;</p><p data-word-style="Table body">&lt;/tt&gt;</p></td>
+  </tr>
+  <tr>
+    <td style="border-top:0.75pt solid #000;border-left:1.5pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000" data-word-style="Table body">4</td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000" data-word-style="Table body">01:30:00</td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000" data-word-style="Table body">00:30:00</td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:1.5pt solid #000"><p data-word-style="Table body">&lt;tt&gt;</p><p data-word-style="Table body">&#160;&#160;&lt;body&gt;</p><p data-word-style="Table body">&#160;&#160;&#160;&#160;&lt;div&gt;&lt;p begin="00:00:00" end="04:00:00"&gt;60-150 minutes&lt;/p&gt;&lt;/div&gt;</p><p data-word-style="Table body">&#160;&#160;&lt;/body&gt;</p><p data-word-style="Table body">&lt;/tt&gt;</p></td>
+  </tr>
+  <tr>
+    <td style="border-top:0.75pt solid #000;border-left:1.5pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000" data-word-style="Table body">5</td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000" data-word-style="Table body">02:00:00</td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000" data-word-style="Table body">00:30:00</td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:1.5pt solid #000"><p data-word-style="Table body">&lt;tt&gt;</p><p data-word-style="Table body">&#160;&#160;&lt;body&gt;</p><p data-word-style="Table body">&#160;&#160;&#160;&#160;&lt;div&gt;&lt;p begin="02:00:00" end="02:30:00"&gt;60-150 minutes&lt;/p&gt;&lt;/div&gt;</p><p data-word-style="Table body">&#160;&#160;&lt;/body&gt;</p><p data-word-style="Table body">&lt;/tt&gt;</p></td>
+  </tr>
+  <tr>
+    <td style="border-top:0.75pt solid #000;border-left:1.5pt solid #000;border-bottom:1.5pt solid #000;border-right:0.75pt solid #000" data-word-style="Table body">6</td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:1.5pt solid #000;border-right:0.75pt solid #000" data-word-style="Table body">02:30:00</td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:1.5pt solid #000;border-right:0.75pt solid #000" data-word-style="Table body">00:30:00</td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:1.5pt solid #000;border-right:1.5pt solid #000"><p data-word-style="Table body">&lt;tt&gt;</p><p data-word-style="Table body">&#160;&#160;&lt;body&gt;</p><p data-word-style="Table body">&#160;&#160;&#160;&#160;&lt;div&gt;&lt;p begin="02:30:00"&gt;150 minutes onwards &lt;/p&gt;&lt;/div&gt;</p><p data-word-style="Table body">&#160;&#160;&lt;/body&gt;</p><p data-word-style="Table body">&lt;/tt&gt;</p></td>
+  </tr>
+  </tbody>
+</table>
+
+The sample composition times of the samples in Table <a href="#table-1" data-xref="number">1</a> are 0 min, 30 min, 1 h, 1 h 30 min, 2 h, and 2 h 30 min, which correspond to the time at which the decoder processes the TTML content from that sample. The text content in the payload of these samples reflects when that text will be displayed. For example, the text “60-150 minutes” is expected to be shown between composition times 60 min and 150 min. The timing information in the TTML documents in these samples is not necessarily matching the times in the text content (e.g. 00:00:00 to 04:00:00) precisely to illustrate the impact of storing the content in ISOBMFF samples. Table <a href="#table-2" data-xref="number">2</a> shows how each sample is processed to produce ISDs, and then how these are clipped to the sample times for display. The ISDs excerpts in Table <a href="#table-2" data-xref="number">2</a> are illustrative and only focusing on timing aspects and content. Compliant TTML ISDs can need to include region elements.
+
+<table class="data" id="table-2" style="font-size:10pt">
+  <colgroup><col style="width:11.82%"><col style="width:46.15%"><col style="width:42.02%"></colgroup>
+  <caption data-number="2" data-word-style="Table title">ISD for the TTML track of Table <a href="#table-1" data-xref="number">1</a></caption>
+  <tbody>
+  <tr>
+    <td style="border-top:1.5pt solid #000;border-left:1.5pt solid #000;border-bottom:1.5pt solid #000;border-right:0.75pt solid #000;text-align:center" data-word-style="Table header"><strong>Sample</strong></td>
+    <td style="border-top:1.5pt solid #000;border-left:0.75pt solid #000;border-bottom:1.5pt solid #000;border-right:0.75pt solid #000;text-align:center" data-word-style="Table header"><strong>ISD contents produced by TTML’s “resolve timing” procedure and associated time range</strong></td>
+    <td style="border-top:1.5pt solid #000;border-left:0.75pt solid #000;border-bottom:1.5pt solid #000;border-right:1.5pt solid #000;text-align:center" data-word-style="Table header"><strong>ISD contents output from sample <br>processing and associated time range</strong></td>
+  </tr>
+  <tr>
+    <td rowspan="3" style="border-top:1.5pt solid #000;border-left:1.5pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000" data-word-style="Table body">1</td>
+    <td style="border-top:1.5pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000"></td>
+    <td style="border-top:1.5pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:1.5pt solid #000"><p data-word-style="Table body">00:00:00 to 00:01:00</p><p data-word-style="Table body">Empty document</p></td>
+  </tr>
+  <tr>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000"><p data-word-style="Table body">00:01:00 to 00:02:00</p><p data-word-style="Table body">&lt;div&gt;&lt;p&gt;1-2 minutes&lt;/p&gt;&lt;/div&gt;</p></td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:1.5pt solid #000"><p data-word-style="Table body">00:01:00 to 00:02:00</p><p data-word-style="Table body">&lt;div&gt;&lt;p&gt;1-2 minutes&lt;/p&gt;&lt;/div&gt;</p></td>
+  </tr>
+  <tr>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000"><p data-word-style="Table body">00:02:00 to Infinity</p><p data-word-style="Table body">Empty document</p></td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:1.5pt solid #000"><p data-word-style="Table body">00:02:00 to 00:30:00</p><p data-word-style="Table body">Empty document</p></td>
+  </tr>
+  <tr>
+    <td rowspan="3" style="border-top:0.75pt solid #000;border-left:1.5pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000" data-word-style="Table body">2</td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000"></td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:1.5pt solid #000"><p data-word-style="Table body">00:30:00 to 00:31:00</p><p data-word-style="Table body">Empty document</p></td>
+  </tr>
+  <tr>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000"><p data-word-style="Table body">00:31:00 to 00:32:00</p><p data-word-style="Table body">&lt;div&gt;&lt;p&gt;31-32 minutes&lt;/p&gt;&lt;/div&gt;</p></td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:1.5pt solid #000"><p data-word-style="Table body">00:31:00 to 00:32:00</p><p data-word-style="Table body">&lt;div&gt;&lt;p&gt;31-32 minutes&lt;/p&gt;&lt;/div&gt;</p></td>
+  </tr>
+  <tr>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000"><p data-word-style="Table body">00:32:00 to Infinity</p><p data-word-style="Table body">Empty document</p></td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:1.5pt solid #000"><p data-word-style="Table body">00:32:00 to 01:00:00</p><p data-word-style="Table body">Empty document</p></td>
+  </tr>
+  <tr>
+    <td rowspan="2" style="border-top:0.75pt solid #000;border-left:1.5pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000" data-word-style="Table body">3</td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000"><p data-word-style="Table body">00:00:00 to 04:00:00</p><p data-word-style="Table body">&lt;div&gt;&lt;p&gt;60-150 minutes&lt;/p&gt;&lt;/div&gt;</p></td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:1.5pt solid #000"><p data-word-style="Table body">01:00:00 to 01:30:00</p><p data-word-style="Table body">&lt;div&gt;&lt;p&gt;60-150 minutes&lt;/p&gt;&lt;/div&gt;</p></td>
+  </tr>
+  <tr>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000"><p data-word-style="Table body">04:00:00 to Infinity</p><p data-word-style="Table body">Empty document</p></td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:1.5pt solid #000"></td>
+  </tr>
+  <tr>
+    <td rowspan="2" style="border-top:0.75pt solid #000;border-left:1.5pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000" data-word-style="Table body">4</td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000"><p data-word-style="Table body">00:00:00 to 04:00:00</p><p data-word-style="Table body">&lt;div&gt;&lt;p&gt;60-150 minutes&lt;/p&gt;&lt;/div&gt;</p></td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:1.5pt solid #000"><p data-word-style="Table body">01:30:00 to 02:00:00</p><p data-word-style="Table body">&lt;div&gt;&lt;p&gt;60-150 minutes&lt;/p&gt;&lt;/div&gt;</p></td>
+  </tr>
+  <tr>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000"><p data-word-style="Table body">04:00:00 to Infinity</p><p data-word-style="Table body">Empty document</p></td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:1.5pt solid #000"></td>
+  </tr>
+  <tr>
+    <td rowspan="2" style="border-top:0.75pt solid #000;border-left:1.5pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000" data-word-style="Table body">5</td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000"><p data-word-style="Table body">02:00:00 to 02:30:00</p><p data-word-style="Table body">&lt;div&gt;&lt;p&gt;60-150 minutes&lt;/p&gt;&lt;/div&gt;</p></td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:1.5pt solid #000"><p data-word-style="Table body">02:00:00 to 02:30:00</p><p data-word-style="Table body">&lt;div&gt;&lt;p&gt;60-150 minutes&lt;/p&gt;&lt;/div&gt;</p></td>
+  </tr>
+  <tr>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:0.75pt solid #000"><p data-word-style="Table body">02:30:00 to Infinity</p><p data-word-style="Table body">Empty document</p></td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:0.75pt solid #000;border-right:1.5pt solid #000"></td>
+  </tr>
+  <tr>
+    <td style="border-top:0.75pt solid #000;border-left:1.5pt solid #000;border-bottom:1.5pt solid #000;border-right:0.75pt solid #000" data-word-style="Table body">6</td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:1.5pt solid #000;border-right:0.75pt solid #000"><p data-word-style="Table body">02:30:00 to Infinity</p><p data-word-style="Table body">&lt;div&gt;&lt;p&gt;150 minutes onwards &lt;/p&gt;&lt;/div&gt;</p></td>
+    <td style="border-top:0.75pt solid #000;border-left:0.75pt solid #000;border-bottom:1.5pt solid #000;border-right:1.5pt solid #000"><p data-word-style="Table body">02:30:00 to 03:00:00</p><p data-word-style="Table body">&lt;div&gt;&lt;p&gt;150 minutes onwards &lt;/p&gt;&lt;/div&gt;</p></td>
+  </tr>
+  </tbody>
+</table>
+
+When processing sample 1, following TTML’s “resolve timing” procedure, two ISDs are created: one non-empty ISD ISD<sub>1</sub> and one subsequent empty ISD ISD<sub>2</sub>. However, because the time interval of ISD<sub>1</sub> starts after the sample timing interval, the sample processor can additionally output one more ISD, corresponding to an empty document, to be displayed from the start of the track until the start of ISD<sub>1</sub>. ISD<sub>2</sub> is to be displayed from the end of ISD<sub>1</sub> until the sample composition end time is reached. The sample processor can omit creating these empty-document ISDs and clear the display when there is no ISD for the given time ranges.
+
+Sample 2 is processed similarly to Sample 1. However, since it is provided to the decoder at composition time 30 min and since the sample composition duration is 30 min, the TTML decoder will display the ISD corresponding to the first empty document only during the interval [00:30:00, 00:31:00), the non-empty intermediate synchronic document during the interval [00:31:00, 00:32:00) and finally display the ISD corresponding to the last empty document until the sample composition time is reached.
+
+Samples 3 and 4 contain exactly the same content and illustrate the possibility of having duplicate content in different samples. This can happen for example at the boundaries of segments in segmented files. Both samples will produce the same ISD. In order to avoid possible rendering artefacts such as flickering at the boundary between such samples, decoder implementations can detect such duplicate, adjacent ISDs and keep processing the first ISD. Moreover, for these samples, TTML’s “resolve timing” procedure will produce two ISDs: one with a time interval that is larger than the interval of their containing sample, and one corresponding to an empty document with a time interval outside of the sample interval. As indicated in Table <a href="#table-2" data-xref="number">2</a>, the sample processor will ignore the second ISDs and clip the rendering of each document in the first ISDs to the sample interval.
+
+Sample 5 also contains the same text content as Sample 3 and 4, but the timing values in the document have been adjusted to match the containing sample interval. Both types of samples result in identical output in this case and both are valid. Sample 5 follows a recommendation that was present in the previous version of this specification that the duration of a TTML document carried in a sample should not be greater than the sample duration.
+
+Finally, Sample 6 illustrates the case of a document that has no end time. The TTML processor will produce one non-empty ISD with time interval [02:30:00, Infinity). However, the sample processor will display it for the clipped interval defined by the sample composition time and duration.
+
+
+<h3 class="no-num" id="5-4-track-format">5.4 Track format</h3>
+
+TTML streams shall be carried in subtitle tracks, and as a consequence according to ISOBMFF, the media handler type is ‘subt’, and the track uses a subtitle media header, and associated sample entry and sample group base class.
+
+
+<h3 class="no-num" id="5-5-sample-entry-format">5.5 Sample entry format</h3>
+
+TTML streams shall use the XMLSubtitleSampleEntry format.
+
+The namespace field shall be set to at least one unique namespace. It should be set to indicate the primary TTML-based namespace of the document, and should be set to all namespaces in use in the document (e.g. TTML + TTML-Styling + SMPTE-TT).
+
+The schema_location field should be set to schema pathnames that uniquely identify the profile or constraint set of the namespaces included in the namespace field.
+
+When sub-samples are present (see 5.6), then the auxiliary_mime_types field shall be set to the mime types used in the sub-samples — e.g. “image/png”.
+
+
+<h3 class="no-num" id="5-6-sample-format">5.6 Sample format</h3>
+
+A TTML subtitle sample shall consist of an XML document, optionally with resources such as images referenced by the XML document. Every sample is therefore a sync sample in this format; hence, the sync sample table is not present.
+
+Other resources such as images are optional. Resources referenced by an XML document may be stored in the same subtitle sample as the document that references them, in which case they shall be stored contiguously following the XML document that references those resources. Resources should be stored in presentation time order.
+
+When resources are stored in a sample, the Track Fragment Box (‘traf’) shall contain a Sub-Sample Information Box (‘subs’) constrained as follows:
+
+<ul>
+  <li><code>entry_count</code> and <code>sample_delta</code> shall be set to 1 since each subtitle track fragment contains a single subtitle sample;</li>
+  <li><code>subsample_count</code> shall be set to the number of resources plus 1;</li>
+  <li><code>subsample_priority</code> and <code>discardable</code> have no meaning; they shall be set to zero on encoding and may be ignored by decoders.</li>
+</ul>
+
+If sub-samples are used, the XML document shall be the first sub-sample entry. Each resource the document references shall be defined as a subsequent sub-sample in the same table.
+
+The XML document shall reference each sub-sample object using a URI, as per IETF RFC 3986. When a URN is used, it shall be of the form:
+
+<p data-word-style="Body Text indent 1" style="margin-left:20.15pt">urn:&lt;nid&gt;:.....:&lt;index&gt;[.&lt;ext&gt;]</p>
+
+where
+
+<table class="layout" style="font-size:11pt;padding-left:0pt;padding-right:0pt">
+  <colgroup><col style="width:4.07%"><col style="width:95.93%"></colgroup>
+  <tbody>
+  <tr>
+    <td></td>
+    <td data-word-style="Table body (+)">&lt;nid&gt; is the registered URN namespace ID per IETF RFC 2141;</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td data-word-style="Table body (+)">&lt;index&gt; is the sub-sample index “j” in the ‘subs’ referring to the object in question;</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td data-word-style="Table body (+)">&lt;ext&gt; is an optional file extension - e.g. “png”.</td>
+  </tr>
+  </tbody>
+</table>
+
+The first resource in the sample will have a sub-sample index value of 1 in the ‘subs’ and that will be the index used to form the URI.
+
+Reference the same object can be made multiple times within an XML document. In such cases, there will be only one sub-sample entry in the Sub-Sample Information Box for that object, and the URNs used to reference the object each time will be identical.
+
+An example construction of the sample with images is shown in Figure <a href="#figure-2" data-xref="number">2</a>.
+
+<div class="note" data-word-style="Note">
+NOTE	The text in the images is just an example and not meant to constrain or imply anything about what is encoded in the images.
+</div>
+
+<figure id="figure-2">
+  <img src="images/fig-10c5b1f33d.png" alt="Subtitle sample structure when using subsamples">
+  <figcaption data-number="2" data-word-style="Figure title">Subtitle sample structure when using subsamples</figcaption>
+</figure>
+
+If a sample contains the identical document to the prior sample, it can be marked as redundant, with the <code>sample_has_redundancy</code> flag defined in ISO/IEC 14496-12, allowing processors the option to extend the duration of the prior sample before processing it and then discard the new sample.
+
+An ‘empty’ sample is defined as containing a TTML document that has no content. A TTML document that has no content is any document that contains (a) no <code>&lt;div&gt;</code> element or (b) no <code>&lt;body&gt;</code> element or (c) no <code>&lt;p&gt;</code> or <code>&lt;span&gt;</code> elements containing character data or <code>&lt;br&gt;</code> elements; for example, the following document:
+
+```
+<tt xml:lang="" xmlns="http://www.w3.org/ns/ttml"/>
+```
+
+
+<h3 class="no-num" id="5-7-additional-considerations">5.7 Additional considerations</h3>
+
+The following additional considerations should be addressed by users of this carriage:
+
+<ul>
+  <li>Unicode character codes allowed;</li>
+  <li>fonts and styles allowed.</li>
+</ul>
+
+
+<h3 class="no-num" id="5-8-codecs-parameter">5.8 Codecs parameter</h3>
+
+The '<code>codecs</code>' parameter for TTML tracks is as defined in RFC 6381 with the following specifics. The first element is the four-character code of the sample description entry of the XML Subtitle Sample Entry of the track, i.e. '<code>stpp</code>'. Additional optional elements are as follows.
+
+When the <code>namespace</code> field of the <code>XMLSubtitleSampleEntry</code> contains any namespace value from the namespace table in W3C Recommendation, Timed Text Markup Language 1.0, Section 5.1, the second element is the four-character code '<code>ttml</code>'. If this element is omitted, then a client should download the track sample description information to examine the track header <code>namespace</code> field and confirm the presence of the TTML namespace.
+
+When the second element is present and set to '<code>ttml</code>', then a third element may be present that describes the profile(s) that the presentation processor needs to support in order to process the document. Its value may either be a single four-character code, referred to as profile identifier, in the TTML Profile Registry maintained by the W3C or as a combination of profile identifiers, using the '+' and '|' operators, as defined in the registry.
+
+<div class="note" data-word-style="Note">
+NOTE 1	The process to derive the profile identifier(s) from the TTML documents stored in the samples of a track is implementation-specific. Such process can use the ttp:profile attribute or elements, or the ttp:processorProfiles attribute or any other information.
+</div>
+
+<div class="note" data-word-style="Note">
+NOTE 2	The TTML profile can be documented in the TTML document or as a parameter to the MIME type in the MIME box as defined in ISO/IEC 14496-12:2015 Amd 2:2018.
+</div>
+
+
+<h3 class="no-num" id="5-9-document-temporal-boundaries">5.9 Document temporal boundaries</h3>
+
+<ul class="wl">
+  <li data-word-style="List Number 1" data-label="a)" style="margin-left:0pt;--wl-hang:20.15pt">The earliest begin time of an element in a TTML document can be non-coincident (earlier or later) with the composition time of the containing sample, and the latest computed end time of an element in the TTML document can be non-coincident (earlier or later) with the end of the sample, which is equal to its composition time plus sample duration.</li>
+  <li data-word-style="List Number 1" data-label="b)" style="margin-left:0pt;--wl-hang:20.15pt">TTML content that falls partially or wholly within the duration of a sample can be present (duplicated) in adjacent samples.</li>
+  <li data-word-style="List Number 1" data-label="c)" style="margin-left:0pt;--wl-hang:20.15pt">Only one sample and document within a Timed Text Track can be active at any moment in the presentation. The presentation of every document is constrained in time to the period beginning at the composition time of the containing sample with the duration of that sample. As a consequence, any timed content within a document that extends outside of that period is expected to be temporally clipped and not to result in any impact on presentation prior to or later than the sample's composition time and duration.</li>
+</ul>
+
+
+<h3 class="no-num" id="5-10-profiles-and-buffering-constraints">5.10 Profiles and buffering constraints</h3>
+
+<p data-word-style="Body Text Indent">The present document does not define a transport layer buffer or timing model. Such a model can be used to guarantee that subtitle content can be read and processed in time to be synchronously presented with audio and video. It is assumed that users of this track format will define timed text content profiles and hypothetical render models (HRM) that will constrain content parameters so that compatible decoders can identify and decode those profiles for synchronous presentation. For example, the IMSC1 profiles define such an HRM.</p>
+
+<p data-word-style="Body Text Indent">When a track carries IMSC1 documents, and for the purpose of verifying HRM constraints, the sequence of ISDs to be used by the algorithm defined in IMSC1 is the one made of all the ISDs produced by all the sample processing defined in 5.3, i.e. after potential clipping by the sample interval.</p>
+
+<p data-word-style="Body Text Indent">The following non-exhaustive list of document constraints may need to be specified to define a timed text profile that will guarantee synchronous decoding of conforming content on conforming decoders:</p>
+
+<ul>
+  <li>maximum allowed document size;</li>
+  <li>number of document buffers in the hypothetical render model;</li>
+  <li>video overlay timing of the hypothetical render model;</li>
+  <li>maximum total compressed image size in megabytes per sample;</li>
+  <li>maximum total decoded image size in megapixels per sample;</li>
+  <li>maximum decoded image dimensions;</li>
+  <li>maximum text rendering rate required by a document;</li>
+  <li>maximum image rendering rate required by a document;</li>
+  <li>maximum number of simultaneously displayed characters;</li>
+  <li>maximum font size;</li>
+  <li>maximum number of simultaneously displayed images.</li>
+</ul>
+
+<div class="note" data-word-style="Note indent">
+NOTE	Defining timed text content profiles is outside the scope of this document but providing a method to signal an externally defined timed text profile in the subtitle sample description is possible using the sample entry description.
+</div>

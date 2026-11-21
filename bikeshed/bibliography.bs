@@ -1,0 +1,12 @@
+<h2 class="no-num" id="bibliography" style="page-break-before:always" data-word-style="Biblio Title">Bibliography</h2>
+
+<ul class="bibliography">
+  <li data-word-style="Biblio Entry" style="margin-left:33.1pt;text-indent:-33.1pt">[1]	ISO/IEC 14496-18, Information technology — Coding of audio-visual objects — Part 18: Font compression and streaming</li>
+  <li data-word-style="Biblio Entry" style="margin-left:33.1pt;text-indent:-33.1pt">[2]	SMPTE ST 2052-1:2013, Timed Text Format (SMPTE-TT)</li>
+  <li data-word-style="Biblio Entry" style="margin-left:33.1pt;text-indent:-33.1pt">[3]	ANSI/CTA-708:2013, Digital Television (DTV) Closed Captioning</li>
+  <li data-word-style="Biblio Entry" style="margin-left:33.1pt;text-indent:-33.1pt">[4]	ANSI/SCTE 128-1, AVC Video Constraints for Cable Television, Part 1 — Coding</li>
+  <li data-word-style="Biblio Entry" style="margin-left:33.1pt;text-indent:-33.1pt">[5]		ISO 639-2, Codes for the representation of names of languages</li>
+  <li data-word-style="Biblio Entry" style="margin-left:33.1pt;text-indent:-33.1pt">[6]		IMSC1, TTML Profiles for Internet Media Subtitles and Captions, <a href="https://www.w3.org/TR/ttml-imsc/rec">https://www.w3.org/TR/ttml-imsc/rec</a></li>
+  <li data-word-style="Biblio Entry" style="margin-left:33.1pt;text-indent:-33.1pt"></li>
+  <li data-word-style="Biblio Entry" style="margin-left:33.1pt;text-indent:-33.1pt"></li>
+</ul>
