@@ -1,0 +1,25 @@
+/* W3C style for an "Unofficial Draft" (W3C-UD.css)
+ * Source: https://github.com/w3c/tr-design (src/W3C-UD.css)
+ * Copyright © 2021 World Wide Web Consortium. All Rights Reserved. This work is distributed under
+ * the W3C® Software and Document License [1] in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ * PURPOSE.
+ * [1] https://www.w3.org/Consortium/Legal/copyright-software
+ * This file includes material copied from the W3C style sheet above. Full license text:
+ * licenses/W3C-SOFTWARE-AND-DOCUMENT-LICENSE-2023.txt in the SpecBuild repository.
+ * Changes: none, apart from this notice.
+ */
+
+/* Style for an "Unofficial Draft" */
+
+@import "base.css";
+
+body {
+  background: url(logos/UD) no-repeat fixed,
+              url(logos/UD-watermark-light-draft) repeat-y center left fixed,
+              url(logos/UD-watermark-light-unofficial) repeat-y center right fixed;
+  background-image: url(logos/UD),
+                    var(--draft-watermark),
+                    var(--unofficial-watermark);
+  background-color: var(--bg);
+}
