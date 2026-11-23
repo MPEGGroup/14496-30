@@ -19,7 +19,7 @@ Subclause 4.1 defines the general layout behaviour for timed text and subtitle t
 
 <h3 class="no-num" id="6-3-timing">6.3 Timing</h3>
 
-Following the general timing processing defined in 4.2, each cue shall be passed to the WebVTT renderer at the time from the time-to-sample table, as mapped by the edit list (if any). The times derived for a sample from the durations in the time-to-sample table reflect the start and end-time of all cues in that sample. All samples are sync samples; the sync sample table is not used.
+Following the general timing processing defined in 4.2, each cue shall be passed to the WebVTT renderer at the time from the time-to-sample table, as mapped by the edit list (if any). The times derived for a sample from the durations in the time-to-sample table reflect the start and end-time of all cues in that sample. In tracks with the sample entry type wvtt, all samples are sync samples; the sync sample table is not used.
 
 If there is internal timing value in a cue, each sample must be labelled with the VTT time that corresponds to the sample start time on the VTT time line.
 
@@ -33,8 +33,9 @@ NOTE 2	Internal timestamps within the cue that precede this current time would 
 
 <p data-word-style="Body Text Indent">When a file writer identifies a cue with indefinite duration, since the cue has no end-time, setting an accurate value for the sample duration might not be possible. In that case, the file writer may rely on tools defined in ISO/IEC 14496-12. If the sample is the last one in the track, ISO/IEC 14496-12:2015, 8.6.1.1 permits setting a zero duration for that sample. If the sample is not the last one in the track, ISO/IEC 14496-12 defines cases when a sample duration can be extended by subsequent information: either using redundant samples (see ISO/IEC 14496-12:2015, 8.6.4.1); or in fragmented tracks, if the sample is the last in the fragment using the <code>TrackFragmentDecodeTime</code> box of the next fragment (see ISO/IEC 14496-12:2015, 8.8.12.1). If such sample duration extension is used, setting an accurate duration is not needed and the file writer may choose an arbitrary short duration for the sample.</p>
 
-<p data-word-style="Body Text Indent">Additionally, if the sample containing a cue with indefinite duration is not the last one, since every sample in a WebVTT track is a sync sample, file writers shall duplicate the indefinite cue content in all subsequent samples.</p>
+<p data-word-style="Body Text Indent">Additionally, if the sample containing a cue with indefinite duration is not the last one, since every sample in a track with the sample entry type wvtt is a sync sample, file writers shall duplicate the indefinite cue content in all subsequent samples.</p>
 
+In tracks with the sample entry type wvtc, a file writer may instead write VTTNoChangeBox samples after the sample that contains the cue, until the segment ends.
 
 <h3 class="no-num" id="6-4-track-format">6.4 Track format</h3>
 
@@ -72,6 +73,10 @@ class WVTTSampleEntry() extends PlainTextSampleEntry (‘wvtt’){
 }
 ```
 
+WebVTT streams in which the cues of a sample can remain active beyond the duration of the sample, as defined in 6.6, shall use the WVTTSampleEntry format with the sample entry type wvtc. The sample entry shall contain a TimedTextMaxActivationBox.
+
+NOTE The codecs parameter for such streams is wvtc.
+
 
 <h3 class="no-num" id="6-6-sample-format">6.6 Sample format</h3>
 
@@ -81,7 +86,14 @@ Each sample is either
 
 <ul class="wl">
   <li data-word-style="List Number 1" data-label="a)" style="margin-left:0pt;--wl-hang:20.15pt">exactly one VTTEmptyCueBox box (representing a period of non-zero duration in which there is no cue data), or</li>
-  <li data-word-style="List Number 1" data-label="b)" style="margin-left:0pt;--wl-hang:20.15pt">one or more VTTCueBox boxes that share the same start time and end time, each containing the following boxes. Only the CuePayloadBox is mandatory, all others are optional. A sample containing cue boxes may also contain zero or more VTTAdditionalTextBox boxes, interleaved between VTTCueBox boxes and carrying any other text in between cues, in the order required by the processing of the additional text, if any.</li>
+  <li data-word-style="List Number 1" data-label="b)" style="margin-left:0pt;--wl-hang:20.15pt">one or more VTTCueBox boxes that share the same start time and end time, each containing the following boxes. Only the CuePayloadBox is mandatory, all others are optional. A sample containing cue boxes may also contain zero or more VTTAdditionalTextBox boxes, interleaved between VTTCueBox boxes and carrying any other text in between cues, in the order required by the processing of the additional text, if any, or</li>
+  <li data-word-style="List Number 1" data-label="c)" style="margin-left:0pt;--wl-hang:20.15pt">in tracks with the sample entry type wvtc only, exactly one VTTNoChangeBox, which indicates that the cues of the most recent sample of type a) or b) continue for the duration of this sample.
+
+  In tracks with the sample entry type wvtc, a sample that is a VTTNoChangeBox is not a sync sample, and each segment, as defined in ISO/IEC 14496-12, shall begin with a sync sample. As for wvtt, a track fragment may contain more than one sample.
+aligned(8) class VTTNoChangeBox extends Box('vttn') {
+   // no defined contents, box must be empty
+}
+</li>
 </ul>
 
 The VTTCueBox boxes must be in presentation order, i.e. if imported from a WebVTT file, the cues in any given sample must be in the order they were in the WebVTT file.
@@ -138,6 +150,7 @@ class VTTAdditionalTextBox extends Box('vtta') {
 
 Free space boxes and unrecognized boxes in any sample, or within the VTTCueBox or VTTEmptyCueBox may be present and should be ignored.
 
+In tracks with the sample entry type wvtc (see 6.5), if no later sample is present, the cues of the most recent sample of type a) or b) remain active until CT + max(d, T_MPA), where CT and d are the composition time and duration of the latest sample of any kind, and T_MPA is given by the TimedTextMaxActivationBox in the sample entry. As for stpc (5.9), they do not remain active beyond the end of the presentation of the track.
 
 <h3 class="no-num" id="6-7-converting-to-or-from-a-webvtt-text-file">6.7 Converting to or from a WebVTT text file</h3>
 

@@ -7,3 +7,24 @@ This is a working draft of ISO/IEC 14496-30. It is maintained by the editors for
 <p data-word-style="Foreword Text">This second edition cancels and replaces the first edition (ISO/IEC 14496-30:2014), which has been technically revised. It incorporates ISO/IEC 14496-30:2014/Cor.1:2015. The main changes compared to the previous edition are as follows:</p>
 
 <p data-word-style="Foreword Text">—	all Clauses (except <a href="#1-scope">Clause 1</a> and <a href="#3-terms-definitions-and-abbreviated-terms">Clause 3</a>) and <a href="#annex-a-informative-captioning-information-embedded-in-a-media-stream-of-another-type">Annex A</a> have been technically revised.</p>
+
+<div class="note">The File Format group has identified limitations in the current edition of ISO/IEC 14496-30. In particular, when the number of timed text samples to be produced needs to be as frequent as those produced by the corresponding video stream (for example in low latency applications), the current standard yields inefficient timed text streams. 
+
+# Extending the duration a document
+When authoring live captions, the duration (or end time) of the current caption is not known until the next caption is received. Waiting for that second caption introduces latency. The group considers 2 options to address this issue:
+-	Option A is based on the following principles:
+o	Define a new sample entry 4CC under which new timing behaviors apply. 
+o	Introduce a new type of sample (no-change) that is not a sync sample and that is used to indicate that the previous document is not changed
+o	Introduce a new sample entry box to provide the maximum duration of a document, for use when the document is followed by no-change samples.
+-	Option B is based the following:
+o	Update the specification to leverage the specific ISOBMFF behavior that allows sample durations to be extended in segmented media
+These options have different consequences, on backward compatibility, on interoperability and/or on derived specifications, such as CMAF, that may require updates. The group welcomes feedback on these options.
+
+# Reducing payload repetition
+The specification requires that every sample is a random-access point. This means that if a new input caption is received a new complete document has to be produced. When considering segmented media, using CMAF Chunks, only the first CMAF Chunk of a CMAF Fragment is required to start with a sync sample. Therefore, the group considers defining non-sync samples.
+
+Open questions:
+- We should study the impact on CMAF (new profile) or structural changes.
+- We need to understand requirements regarding empty samples/heartbeats.
+
+</div>

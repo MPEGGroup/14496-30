@@ -21,7 +21,7 @@ Alternatively, when a resolution-independent document has been authored to a spe
 
 This subclause defines processing of timing information for TTML documents carried in a TTML track. The general timing processing defined in 4.2 applies, but specific aspects are refined in this subclause. Timing processing is defined only for TTML documents in which ttp:timeBase is ‘media’. For other values, timing processing behaviour is undefined and such documents should not be carried in TTML tracks.
 
-When the rendering of a sample happens, the TTML document in the sample is provided to the TTML processor, together with the track composition time T of the sample and the sample composition duration d. The TTML processor then uses the interval \([T, T + d)\) together with the time coordinates \(\{T_i\}\) produced by the “resolve timing” procedure, as defined in TTML, to determine which intermediate synchronic documents (ISDs) to present and for how long. Specifically, track composition time \(t \in [T, T + d)\) results in TTML ISD \(i\) being presented, with \(t \in [T_i, T_{i+1})\).
+When the rendering of a sample happens, the TTML document in the sample is provided to the TTML processor, together with the track composition time T of the sample and the duration d of the active period of the document, as defined in 5.9. The TTML processor then uses the interval \([T, T + d)\) together with the time coordinates \(\{T_i\}\) produced by the “resolve timing” procedure, as defined in TTML, to determine which intermediate synchronic documents (ISDs) to present and for how long. Specifically, track composition time \(t \in [T, T + d)\) results in TTML ISD \(i\) being presented, with \(t \in [T_i, T_{i+1})\).
 
 <div class="note" data-word-style="Note">
 NOTE 1	The fact that time coordinates produced by the TTML processor are interpreted as being on the track composition timeline remains true in the case of segment files, defined in 14496-12. In other words, time coordinates produced by a document stored in a sample of a segment are still relative to time 0 on the track composition timeline and are not relative to the segment start.
@@ -176,10 +176,11 @@ The schema_location field should be set to schema pathnames that uniquely identi
 
 When sub-samples are present (see 5.6), then the auxiliary_mime_types field shall be set to the mime types used in the sub-samples — e.g. “image/png”.
 
+TTML streams in which a document can remain active beyond the duration of its sample, as defined in 5.9, shall use the XMLSubtitleSampleEntry format with the sample entry type stpc. The syntax and the semantics of the fields are as for stpp. The sample entry shall contain a TimedTextMaxActivationBox.
 
 <h3 class="no-num" id="5-6-sample-format">5.6 Sample format</h3>
 
-A TTML subtitle sample shall consist of an XML document, optionally with resources such as images referenced by the XML document. Every sample is therefore a sync sample in this format; hence, the sync sample table is not present.
+A TTML subtitle sample shall consist of an XML document, optionally with resources such as images referenced by the XML document. In tracks with the sample entry type stpp, every sample is therefore a sync sample; hence, the sync sample table is not present. Sync samples in tracks with the sample entry type stpc are specified below.
 
 Other resources such as images are optional. Resources referenced by an XML document may be stored in the same subtitle sample as the document that references them, in which case they shall be stored contiguously following the XML document that references those resources. Resources should be stored in presentation time order.
 
@@ -240,6 +241,24 @@ An ‘empty’ sample is defined as containing a TTML document that has no conte
 <tt xml:lang="" xmlns="http://www.w3.org/ns/ttml"/>
 ```
 
+In tracks with the sample entry type stpc, a sample is either a TTML document, with optional resources as above, or exactly one TTMLNoChangeBox. A sample is a TTMLNoChangeBox when its first eight bytes are a box header of that type whose size equals the sample size. Any other sample is a document.
+A TTMLNoChangeBox does not supersede the active document. The active document continues, and its own timing continues to apply.
+In tracks with the sample entry type stpc, a sample that is a TTML document is a sync sample. A sample that is a TTMLNoChangeBox is not a sync sample. The sync sample table or the sample flags shall signal this. Each segment, as defined in ISO/IEC 14496-12, shall begin with a sync sample. As for stpp, each track fragment contains a single sample.
+aligned(8) class TTMLNoChangeBox extends Box('ttmn') {
+  // no defined contents, box must be empty
+}
+
+In tracks with the sample entry type stpc, a sample may also be exactly one TTMLBodyBox. A sample is a TTMLBodyBox when its first eight bytes are a box header of that type whose size equals the sample size. It is not a sync sample. The document of such a sample is the document of the most recent preceding sync sample in the same segment, with its <body> element replaced by the content of the box. The document of that sync sample shall contain a <body> element, which may be empty.
+aligned(8) class TTMLBodyBox extends Box('ttmb') {
+  boxstring body;
+}
+body is a complete TTML <body> element in UTF-8. The namespaces in scope are those of the root element of the document of the sync sample.
+
+
+NOTE: Editor’s note: Alternative/additional options could be to:
+- Make body samples be sync samples by storing the TTML document header in the sample entry
+- Permit some body samples to be incremental, i.e. instead of replacing the existing body, the content of the new body could be appended to the previous body.
+
 
 <h3 class="no-num" id="5-7-additional-considerations">5.7 Additional considerations</h3>
 
@@ -267,13 +286,23 @@ NOTE 1	The process to derive the profile identifier(s) from the TTML documents s
 NOTE 2	The TTML profile can be documented in the TTML document or as a parameter to the MIME type in the MIME box as defined in ISO/IEC 14496-12:2015 Amd 2:2018.
 </div>
 
+For tracks with the sample entry type stpc, the first element is stpc. The second and third elements are as for stpp.
 
 <h3 class="no-num" id="5-9-document-temporal-boundaries">5.9 Document temporal boundaries</h3>
 
 <ul class="wl">
   <li data-word-style="List Number 1" data-label="a)" style="margin-left:0pt;--wl-hang:20.15pt">The earliest begin time of an element in a TTML document can be non-coincident (earlier or later) with the composition time of the containing sample, and the latest computed end time of an element in the TTML document can be non-coincident (earlier or later) with the end of the sample, which is equal to its composition time plus sample duration.</li>
   <li data-word-style="List Number 1" data-label="b)" style="margin-left:0pt;--wl-hang:20.15pt">TTML content that falls partially or wholly within the duration of a sample can be present (duplicated) in adjacent samples.</li>
-  <li data-word-style="List Number 1" data-label="c)" style="margin-left:0pt;--wl-hang:20.15pt">Only one sample and document within a Timed Text Track can be active at any moment in the presentation. The presentation of every document is constrained in time to the period beginning at the composition time of the containing sample with the duration of that sample. As a consequence, any timed content within a document that extends outside of that period is expected to be temporally clipped and not to result in any impact on presentation prior to or later than the sample's composition time and duration.</li>
+  <li data-word-style="List Number 1" data-label="c)" style="margin-left:0pt;--wl-hang:20.15pt">Only one sample and document within a Timed Text Track can be active at any moment in the presentation.
+  For tracks using the XMLSubtitleSampleEntry format with the type stpp, the presentation of every document is constrained in time to the period beginning at the composition time of the containing sample with the duration of that sample. As a consequence, any timed content within a document that extends outside of that period is expected to be temporally clipped and not to result in any impact on presentation prior to or later than the sample's composition time and duration.
+  For tracks using the sample entry type stpc (see 5.5), the active period of a document begins at the composition time of the containing sample. It ends at the earlier of:
+  i the composition time of the next sample that is not a TTMLNoChangeBox;
+  ii the time CT + max(d, T_MPA), where CT and d are the composition time and duration of the latest sample of any kind in the track whose composition time is not later than the current presentation time, and T_MPA is given by the TimedTextMaxActivationBox in the sample entry.
+  The active period does not extend beyond the end of the presentation of the track, as given by the edit list or the track duration when these are known.
+  NOTE: In segmented delivery, the delivery format can end the presentation of a track earlier. In DASH, for example, a Representation is presented only until the end of its Period (ISO/IEC 23009-1).
+  Timed content within a document that extends outside its active period is temporally clipped to that period.
+  NOTE: When the samples of a track tile the timeline, condition i) always applies first: the active period runs from the composition time of the sample to that of the next sample that carries a document, and equals the sample duration when that is the next sample. Condition ii) applies only when later samples are missing or delayed.
+</li>
 </ul>
 
 
@@ -281,7 +310,7 @@ NOTE 2	The TTML profile can be documented in the TTML document or as a parameter
 
 <p data-word-style="Body Text Indent">The present document does not define a transport layer buffer or timing model. Such a model can be used to guarantee that subtitle content can be read and processed in time to be synchronously presented with audio and video. It is assumed that users of this track format will define timed text content profiles and hypothetical render models (HRM) that will constrain content parameters so that compatible decoders can identify and decode those profiles for synchronous presentation. For example, the IMSC1 profiles define such an HRM.</p>
 
-<p data-word-style="Body Text Indent">When a track carries IMSC1 documents, and for the purpose of verifying HRM constraints, the sequence of ISDs to be used by the algorithm defined in IMSC1 is the one made of all the ISDs produced by all the sample processing defined in 5.3, i.e. after potential clipping by the sample interval.</p>
+<p data-word-style="Body Text Indent">When a track carries IMSC1 documents, and for the purpose of verifying HRM constraints, the sequence of ISDs to be used by the algorithm defined in IMSC1 is the one made of all the ISDs produced by all the sample processing defined in 5.3, i.e. after potential clipping by the active period defined in 5.9.</p>
 
 <p data-word-style="Body Text Indent">The following non-exhaustive list of document constraints may need to be specified to define a timed text profile that will guarantee synchronous decoding of conforming content on conforming decoders:</p>
 
