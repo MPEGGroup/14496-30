@@ -81,12 +81,19 @@ Timed text tracks may be explicitly or implicitly associated with other tracks i
 <h3 class="no-num" id="4-6-maximum-period-of-activation">4.6 Maximum period of activation</h3>
 
 Box Type: ttma
+
 Container: XMLSubtitleSampleEntry of type stpc, or WVTTSampleEntry of type wvtc
+
 Mandatory: Yes, in those sample entries
+
 Quantity: Exactly one
+
 The TimedTextMaxActivationBox gives the maximum period of activation T_MPA used in 5.9 and 6.6.
+
+```sdl
 aligned(8) class TimedTextMaxActivationBox extends FullBox('ttma', version = 0, 0) {
   unsigned int(32) max_activation_period;
 }
+```
 
 max_activation_period is T_MPA in the timescale of the media header box. It shall be greater than zero. It should correspond to 5 s, the value of T_MPA in ETSI EN 303 560.

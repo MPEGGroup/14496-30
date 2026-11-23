@@ -75,7 +75,7 @@ class WVTTSampleEntry() extends PlainTextSampleEntry (‘wvtt’){
 
 WebVTT streams in which the cues of a sample can remain active beyond the duration of the sample, as defined in 6.6, shall use the WVTTSampleEntry format with the sample entry type wvtc. The sample entry shall contain a TimedTextMaxActivationBox.
 
-NOTE The codecs parameter for such streams is wvtc.
+NOTE: The codecs parameter for such streams is wvtc.
 
 
 <h3 class="no-num" id="6-6-sample-format">6.6 Sample format</h3>
