@@ -58,7 +58,7 @@ A WebVTT source label box should occur in the sample entry. It contains a suitab
 NOTE	The '<code>codecs</code>' parameter for WebVTT streams as defined in RFC 6381 uses only one element, the four-character code of the sample description entry for the stream, i.e. '<code>wvtt</code>'.
 </div>
 
-```sdl
+```c
 class WebVTTConfigurationBox extends Box('vttC') {
    boxstring   config;
 }
@@ -90,9 +90,9 @@ Each sample is either
   <li data-word-style="List Number 1" data-label="c)" style="margin-left:0pt;--wl-hang:20.15pt">in tracks with the sample entry type wvtc only, exactly one VTTNoChangeBox, which indicates that the cues of the most recent sample of type a) or b) continue for the duration of this sample.
 
   In tracks with the sample entry type wvtc, a sample that is a VTTNoChangeBox is not a sync sample, and each segment, as defined in ISO/IEC 14496-12, shall begin with a sync sample. As for wvtt, a track fragment may contain more than one sample.
-aligned(8) class VTTNoChangeBox extends Box('vttn') {
+<pre>aligned(8) class VTTNoChangeBox extends Box('vttn') {
    // no defined contents, box must be empty
-}
+}</pre>
 </li>
 </ul>
 
@@ -116,7 +116,7 @@ NOTE	The sample entry code is '<code>vttC</code>'; in contrast the VTTCueBox is 
 
 In the CuePayloadBox there must be no blank lines (but there may be multiple lines).
 
-```sdl
+```c
 aligned(8) class VTTCueBox extends Box('vttc') {
    CueSourceIDBox()   // optional source ID
    CueIDBox();        // optional

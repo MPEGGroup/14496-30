@@ -90,7 +90,7 @@ Quantity: Exactly one
 
 The TimedTextMaxActivationBox gives the maximum period of activation T_MPA used in 5.9 and 6.6.
 
-```sdl
+```c
 aligned(8) class TimedTextMaxActivationBox extends FullBox('ttma', version = 0, 0) {
   unsigned int(32) max_activation_period;
 }
