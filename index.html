@@ -1490,7 +1490,7 @@ Possible extra rowspan handling
 	}
 </style>
 <meta content="Bikeshed version d113b2e81, updated Tue Jun 9 14:57:55 2026 -0700" name="generator"/>
-<meta content="a0c0c37c348fbe7f57a24fcadd7b92ef43594552" name="revision"/>
+<meta content="d88a02b034974d245975fd05d637e1eb7480727a" name="revision"/>
 <meta content="dark light" name="color-scheme"/>
 <link href="css/custom.css" rel="stylesheet"/>
 <link href="css/print.css" media="print" rel="stylesheet"/>
@@ -2056,6 +2056,151 @@ dfn > a.self-link:hover {
 a.self-link::before            { content: "¶"; }
 .heading > a.self-link::before { content: "§"; }
 dfn > a.self-link::before      { content: "#"; }
+</style>
+<style>/* Boilerplate: style-syntax-highlighting */
+code.highlight { padding: .1em; border-radius: .3em; }
+pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em 0; overflow: auto; border-radius: 0; }
+
+.highlight:not(.idl) { background: rgba(0, 0, 0, .03); }
+c-[a] { color: #990055 } /* Keyword.Declaration */
+c-[b] { color: #990055 } /* Keyword.Type */
+c-[c] { color: #708090 } /* Comment */
+c-[d] { color: #708090 } /* Comment.Multiline */
+c-[e] { color: #0077aa } /* Name.Attribute */
+c-[f] { color: #669900 } /* Name.Tag */
+c-[g] { color: #222222 } /* Name.Variable */
+c-[k] { color: #990055 } /* Keyword */
+c-[l] { color: #000000 } /* Literal */
+c-[m] { color: #000000 } /* Literal.Number */
+c-[n] { color: #0077aa } /* Name */
+c-[o] { color: #999999 } /* Operator */
+c-[p] { color: #999999 } /* Punctuation */
+c-[s] { color: #a67f59 } /* Literal.String */
+c-[t] { color: #a67f59 } /* Literal.String.Single */
+c-[u] { color: #a67f59 } /* Literal.String.Double */
+c-[cp] { color: #708090 } /* Comment.Preproc */
+c-[c1] { color: #708090 } /* Comment.Single */
+c-[cs] { color: #708090 } /* Comment.Special */
+c-[kc] { color: #990055 } /* Keyword.Constant */
+c-[kn] { color: #990055 } /* Keyword.Namespace */
+c-[kp] { color: #990055 } /* Keyword.Pseudo */
+c-[kr] { color: #990055 } /* Keyword.Reserved */
+c-[ld] { color: #000000 } /* Literal.Date */
+c-[nc] { color: #0077aa } /* Name.Class */
+c-[no] { color: #0077aa } /* Name.Constant */
+c-[nd] { color: #0077aa } /* Name.Decorator */
+c-[ni] { color: #0077aa } /* Name.Entity */
+c-[ne] { color: #0077aa } /* Name.Exception */
+c-[nf] { color: #0077aa } /* Name.Function */
+c-[nl] { color: #0077aa } /* Name.Label */
+c-[nn] { color: #0077aa } /* Name.Namespace */
+c-[py] { color: #0077aa } /* Name.Property */
+c-[ow] { color: #999999 } /* Operator.Word */
+c-[mb] { color: #000000 } /* Literal.Number.Bin */
+c-[mf] { color: #000000 } /* Literal.Number.Float */
+c-[mh] { color: #000000 } /* Literal.Number.Hex */
+c-[mi] { color: #000000 } /* Literal.Number.Integer */
+c-[mo] { color: #000000 } /* Literal.Number.Oct */
+c-[sb] { color: #a67f59 } /* Literal.String.Backtick */
+c-[sc] { color: #a67f59 } /* Literal.String.Char */
+c-[sd] { color: #a67f59 } /* Literal.String.Doc */
+c-[se] { color: #a67f59 } /* Literal.String.Escape */
+c-[sh] { color: #a67f59 } /* Literal.String.Heredoc */
+c-[si] { color: #a67f59 } /* Literal.String.Interpol */
+c-[sx] { color: #a67f59 } /* Literal.String.Other */
+c-[sr] { color: #a67f59 } /* Literal.String.Regex */
+c-[ss] { color: #a67f59 } /* Literal.String.Symbol */
+c-[vc] { color: #0077aa } /* Name.Variable.Class */
+c-[vg] { color: #0077aa } /* Name.Variable.Global */
+c-[vi] { color: #0077aa } /* Name.Variable.Instance */
+c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
+
+@media (prefers-color-scheme: dark) {
+    .highlight:not(.idl) { background: rgba(255, 255, 255, .05); }
+
+    c-[a] { color: #d33682 } /* Keyword.Declaration */
+    c-[b] { color: #d33682 } /* Keyword.Type */
+    c-[c] { color: #2aa198 } /* Comment */
+    c-[d] { color: #2aa198 } /* Comment.Multiline */
+    c-[e] { color: #268bd2 } /* Name.Attribute */
+    c-[f] { color: #b58900 } /* Name.Tag */
+    c-[g] { color: #cb4b16 } /* Name.Variable */
+    c-[k] { color: #d33682 } /* Keyword */
+    c-[l] { color: #657b83 } /* Literal */
+    c-[m] { color: #657b83 } /* Literal.Number */
+    c-[n] { color: #268bd2 } /* Name */
+    c-[o] { color: #657b83 } /* Operator */
+    c-[p] { color: #657b83 } /* Punctuation */
+    c-[s] { color: #6c71c4 } /* Literal.String */
+    c-[t] { color: #6c71c4 } /* Literal.String.Single */
+    c-[u] { color: #6c71c4 } /* Literal.String.Double */
+    c-[ch] { color: #2aa198 } /* Comment.Hashbang */
+    c-[cp] { color: #2aa198 } /* Comment.Preproc */
+    c-[cpf] { color: #2aa198 } /* Comment.PreprocFile */
+    c-[c1] { color: #2aa198 } /* Comment.Single */
+    c-[cs] { color: #2aa198 } /* Comment.Special */
+    c-[kc] { color: #d33682 } /* Keyword.Constant */
+    c-[kn] { color: #d33682 } /* Keyword.Namespace */
+    c-[kp] { color: #d33682 } /* Keyword.Pseudo */
+    c-[kr] { color: #d33682 } /* Keyword.Reserved */
+    c-[ld] { color: #657b83 } /* Literal.Date */
+    c-[nc] { color: #268bd2 } /* Name.Class */
+    c-[no] { color: #268bd2 } /* Name.Constant */
+    c-[nd] { color: #268bd2 } /* Name.Decorator */
+    c-[ni] { color: #268bd2 } /* Name.Entity */
+    c-[ne] { color: #268bd2 } /* Name.Exception */
+    c-[nf] { color: #268bd2 } /* Name.Function */
+    c-[nl] { color: #268bd2 } /* Name.Label */
+    c-[nn] { color: #268bd2 } /* Name.Namespace */
+    c-[py] { color: #268bd2 } /* Name.Property */
+    c-[ow] { color: #657b83 } /* Operator.Word */
+    c-[mb] { color: #657b83 } /* Literal.Number.Bin */
+    c-[mf] { color: #657b83 } /* Literal.Number.Float */
+    c-[mh] { color: #657b83 } /* Literal.Number.Hex */
+    c-[mi] { color: #657b83 } /* Literal.Number.Integer */
+    c-[mo] { color: #657b83 } /* Literal.Number.Oct */
+    c-[sa] { color: #6c71c4 } /* Literal.String.Affix */
+    c-[sb] { color: #6c71c4 } /* Literal.String.Backtick */
+    c-[sc] { color: #6c71c4 } /* Literal.String.Char */
+    c-[dl] { color: #6c71c4 } /* Literal.String.Delimiter */
+    c-[sd] { color: #6c71c4 } /* Literal.String.Doc */
+    c-[se] { color: #6c71c4 } /* Literal.String.Escape */
+    c-[sh] { color: #6c71c4 } /* Literal.String.Heredoc */
+    c-[si] { color: #6c71c4 } /* Literal.String.Interpol */
+    c-[sx] { color: #6c71c4 } /* Literal.String.Other */
+    c-[sr] { color: #6c71c4 } /* Literal.String.Regex */
+    c-[ss] { color: #6c71c4 } /* Literal.String.Symbol */
+    c-[fm] { color: #268bd2 } /* Name.Function.Magic */
+    c-[vc] { color: #cb4b16 } /* Name.Variable.Class */
+    c-[vg] { color: #cb4b16 } /* Name.Variable.Global */
+    c-[vi] { color: #cb4b16 } /* Name.Variable.Instance */
+    c-[vm] { color: #cb4b16 } /* Name.Variable.Magic */
+    c-[il] { color: #657b83 } /* Literal.Number.Integer.Long */
+}
+
+@media print {
+    /* Darken colors for print that would otherwise print too faintly */
+    c-[c]  { color: #555555 } /* Comment */
+    c-[d]  { color: #555555 } /* Comment.Multiline */
+    c-[cp] { color: #555555 } /* Comment.Preproc */
+    c-[c1] { color: #555555 } /* Comment.Single */
+    c-[cs] { color: #555555 } /* Comment.Special */
+    c-[o]  { color: #222222 } /* Operator */
+    c-[p]  { color: #222222 } /* Punctuation */
+    c-[ow] { color: #222222 } /* Operator.Word */
+    c-[s]  { color: #664400 } /* Literal.String */
+    c-[t]  { color: #664400 } /* Literal.String.Single */
+    c-[u]  { color: #664400 } /* Literal.String.Double */
+    c-[sb] { color: #664400 } /* Literal.String.Backtick */
+    c-[sc] { color: #664400 } /* Literal.String.Char */
+    c-[sd] { color: #664400 } /* Literal.String.Doc */
+    c-[se] { color: #664400 } /* Literal.String.Escape */
+    c-[sh] { color: #664400 } /* Literal.String.Heredoc */
+    c-[si] { color: #664400 } /* Literal.String.Interpol */
+    c-[sx] { color: #664400 } /* Literal.String.Other */
+    c-[sr] { color: #664400 } /* Literal.String.Regex */
+    c-[ss] { color: #664400 } /* Literal.String.Symbol */
+}
 </style>
 <style id="annex-figure-suppression">
 figcaption.has-figure-number::before { content: none !important; }
@@ -2829,7 +2974,7 @@ nav#toc .content { margin-left: 0 !important; }
 <p data-fill-with="logo"></p>
 <h1 class="no-ref p-name" id="title">ISO/IEC 14496-30 - Information technology — Coding of audio-visual objects — Part 30: Timed text and other visual overlays in ISO base media file format</h1>
 <h2 class="heading no-num no-ref no-toc settled" id="profile-and-date"><span class="content">Working Draft,
-    <time class="dt-updated" datetime="2026-11-21">21 October 2026</time></span></h2>
+    <time class="dt-updated" datetime="2026-11-23">21 October 2026</time></span></h2>
 <div data-fill-with="spec-metadata">
 <dl>
 <dt>Issue Tracking:
@@ -2848,6 +2993,9 @@ nav#toc .content { margin-left: 0 !important; }
 <h2 class="no-num no-ref no-toc" id="contents">Table of Contents</h2>
 <ol class="toc">
 <li><a href="#foreword"><span class="secno"></span> <span class="content">Foreword</span></a>
+</li><li><a href="#extending-duration"><span class="secno">1</span> <span class="content">Extending the duration a document {#extending-duration}</span></a>
+</li><li><a href="#reducing-repetition"><span class="secno">2</span> <span class="content">Reducing payload repetition {#reducing-repetition}</span></a>
+</li><li><a href="#open-questions"><span class="secno">3</span> <span class="content">Open questions {#open-questions}</span></a>
 </li><li><a href="#introduction"><span class="secno"></span> <span class="content">Introduction</span></a>
 </li><li><a href="#1-scope"><span class="secno"></span> <span class="content">1 Scope</span></a>
 </li><li><a href="#2-normative-references"><span class="secno"></span> <span class="content">2 Normative references</span></a>
@@ -2865,6 +3013,7 @@ nav#toc .content { margin-left: 0 !important; }
 </li><li><a href="#4-3-language"><span class="secno"></span> <span class="content">4.3 Language</span></a>
 </li><li><a href="#4-4-resources-shared-by-multiple-samples"><span class="secno"></span> <span class="content">4.4 Resources shared by multiple samples</span></a>
 </li><li><a href="#4-5-associating-timed-text-tracks"><span class="secno"></span> <span class="content">4.5 Associating timed text tracks</span></a>
+</li><li><a href="#4-6-maximum-period-of-activation"><span class="secno"></span> <span class="content">4.6 Maximum period of activation</span></a>
 </li></ol>
 </li><li>
 <a href="#5-timed-text-markup-language-ttml"><span class="secno"></span> <span class="content">5 Timed Text Markup Language (TTML)</span></a>
@@ -2925,7 +3074,47 @@ nav#toc .content { margin-left: 0 !important; }
 <p data-word-style="Foreword Text">This document was prepared by Technical Committee ISO/IEC JTC 1, <em>Information technology</em>, Subcommittee SC 29, <em>Coding of audio, picture, multimedia and hypermedia information</em>.</p>
 <p data-word-style="Foreword Text">This second edition cancels and replaces the first edition (ISO/IEC 14496-30:2014), which has been technically revised. It incorporates ISO/IEC 14496-30:2014/Cor.1:2015. The main changes compared to the previous edition are as follows:</p>
 <p data-word-style="Foreword Text">—	all Clauses (except <a href="#1-scope">Clause 1</a> and <a href="#3-terms-definitions-and-abbreviated-terms">Clause 3</a>) and <a href="#annex-a-informative-captioning-information-embedded-in-a-media-stream-of-another-type">Annex A</a> have been technically revised.</p>
-<h2 class="heading no-num settled" data-word-style="Intro Title" id="introduction" style="page-break-before:always"><span class="content">Introduction</span></h2>
+<div class="note" role="note">
+    The File Format group has identified limitations in the current edition of ISO/IEC 14496-30. In particular, when the number of timed text samples to be produced needs to be as frequent as those produced by the corresponding video stream (for example in low latency applications), the current standard yields inefficient timed text streams. 2 sets of changes are envisaged.
+
+
+    <h2 class="heading settled" data-level="1" id="extending-duration"><span class="secno">1. </span><span class="content">Extending the duration a document {#extending-duration}</span><a class="self-link" href="#extending-duration"></a></h2>
+    
+When authoring live captions, the duration (or end time) of the current caption is not known until the next caption is received. Waiting for that second caption introduces latency. The group considers 2 options to address this issue:
+
+    <ul>
+<li data-md="">
+<p>Option A is based on the following principles:</p>
+<ul>
+<li data-md="">
+<p>Define a new sample entry 4CC under which new timing behaviors apply.</p>
+</li><li data-md="">
+<p>Introduce a new type of sample (no-change) that is not a sync sample and that is used to indicate that the previous document is not changed</p>
+</li><li data-md="">
+<p>Introduce a new sample entry box to provide the maximum duration of a document, for use when the document is followed by no-change samples.</p>
+</li></ul>
+</li><li data-md="">
+<p>Option B is based the following:</p>
+<ul>
+<li data-md="">
+<p>Update the specification to leverage the specific ISOBMFF behavior that allows sample durations to be extended in segmented media</p>
+</li></ul>
+</li></ul>
+<p>These options have different consequences, on backward compatibility, on interoperability and/or on derived specifications, such as CMAF, that <span class="rfc-keyword">may</span> require updates. The group welcomes feedback on these options.</p>
+<p class="back-to-toc-wrapper"><a class="back-to-toc" href="#toc">↑ Back to Table of Contents</a></p><h2 class="heading settled" data-level="2" id="reducing-repetition"><span class="secno">2. </span><span class="content">Reducing payload repetition {#reducing-repetition}</span><a class="self-link" href="#reducing-repetition"></a></h2>
+    
+The specification requires that every sample is a random-access point. This means that if a new input caption is received a new complete document has to be produced. When considering segmented media, using CMAF Chunks, only the first CMAF Chunk of a CMAF Fragment is required to start with a sync sample. Therefore, the group considers defining non-sync samples.
+
+
+    <p class="back-to-toc-wrapper"><a class="back-to-toc" href="#toc">↑ Back to Table of Contents</a></p><h2 class="heading settled" data-level="3" id="open-questions"><span class="secno">3. </span><span class="content">Open questions {#open-questions}</span><a class="self-link" href="#open-questions"></a></h2>
+<ul>
+<li data-md="">
+<p>We <span class="rfc-keyword">should</span> study the impact on CMAF (new profile) or structural changes.</p>
+</li><li data-md="">
+<p>We need to understand requirements regarding empty samples/heartbeats.</p>
+</li></ul>
+</div>
+<h2 class="heading no-num settled" data-word-style="Intro Title" id="introduction" style="page-break-before:always"><span class="content">Introduction</span><a class="self-link" href="#introduction"></a></h2>
 <p>This document defines a storage format based on, and compatible with, the ISO base media file format (ISO/IEC 14496-12), which is used by the MP4 file format (ISO/IEC 14496-14) and the Motion JPEG 2000 file format (ISO/IEC 15444-3) among others. This document enables timed text and subtitle streams to</p>
 <ul>
 <li>be used in conjunction with other media streams, such as audio or video;
@@ -2935,9 +3124,9 @@ nav#toc .content { margin-left: 0 !important; }
    </li></ul>
 <div class="page-break" style="break-after:page"></div>
 <p class="main-title" data-word-style="zzSTDTitle" style="font-size:16pt;font-family:'Cambria';font-weight:bold;margin-top:20pt;margin-bottom:38pt">Information technology — Coding of audio-visual objects — Part 30: Timed text and other visual overlays in ISO base media file format</p>
-<h2 class="heading no-num settled" id="1-scope"><span class="content">1 Scope</span></h2>
+<h2 class="heading no-num settled" id="1-scope"><span class="content">1 Scope</span><a class="self-link" href="#1-scope"></a></h2>
 <p>This document describes the carriage of some forms of timed text and subtitle streams in files based on ISO/IEC 14496-12 (the ISO base media file format). The documentation of these forms does not preclude other definition of carriage of timed text or subtitles; see, for example, 3GPP Timed Text (3GPP TS 26.245), or the carriage of captioning information embedded in a media stream of another type (see <a href="#annex-a-informative-captioning-information-embedded-in-a-media-stream-of-another-type">Annex A</a>).</p>
-<h2 class="heading no-num settled" id="2-normative-references"><span class="content">2 Normative references</span></h2>
+<h2 class="heading no-num settled" id="2-normative-references"><span class="content">2 Normative references</span><a class="self-link" href="#2-normative-references"></a></h2>
 <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
 <ul class="bibliography">
 <li data-word-style="RefNorm">W3C Recommendation, Timed Text Markup Language 1.0, Second Edition, <a href="https://www.w3.org/TR/ttml1/">https://www.w3.org/TR/ttml1/</a>
@@ -2948,8 +3137,8 @@ nav#toc .content { margin-left: 0 !important; }
     </li><li data-word-style="RefNorm">IETF RFC 3986, Uniform Resource Identifier (URI): Generic Syntax
     </li><li data-word-style="RefNorm">IETF RFC 6381, MIME Codecs and Profiles
    </li></ul>
-<h2 class="heading no-num settled" id="3-terms-definitions-and-abbreviated-terms"><span class="content">3 Terms, definitions and abbreviated terms</span></h2>
-<h3 class="heading no-num settled" id="3-1-terms-and-definitions"><span class="content">3.1 Terms and definitions</span></h3>
+<h2 class="heading no-num settled" id="3-terms-definitions-and-abbreviated-terms"><span class="content">3 Terms, definitions and abbreviated terms</span><a class="self-link" href="#3-terms-definitions-and-abbreviated-terms"></a></h2>
+<h3 class="heading no-num settled" id="3-1-terms-and-definitions"><span class="content">3.1 Terms and definitions</span><a class="self-link" href="#3-1-terms-and-definitions"></a></h3>
 <p>For the purposes of this document, the following terms and definitions apply.</p>
 <p>ISO and IEC maintain terminological databases for use in standardization at the following addresses:</p>
 <ul>
@@ -2975,7 +3164,7 @@ EXAMPLE	A start time, an end time, or a duration, corresponding to a timed behav
     </dd><dt class="term"><span class="term-number">3.1.6</span><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="term-3-1-6">subtitle track</dfn>
 </dt><dd>ISOBMFF representation of a subtitle stream
    </dd></dl>
-<h3 class="heading no-num settled" id="3-2-abbreviated-terms"><span class="content">3.2 Abbreviated terms</span></h3>
+<h3 class="heading no-num settled" id="3-2-abbreviated-terms"><span class="content">3.2 Abbreviated terms</span><a class="self-link" href="#3-2-abbreviated-terms"></a></h3>
 <table class="layout" style="font-size:11pt">
 <colgroup>
 <col style="width:13.65%"/>
@@ -2991,8 +3180,8 @@ EXAMPLE	A start time, an end time, or a duration, corresponding to a timed behav
 <td data-word-style="Table body (+)"><strong>ISOBMFF</strong>
 </td><td data-word-style="Table body (+)">ISO base media file format
    </td></tr></tbody></table>
-<h2 class="heading no-num settled" id="4-general-definitions"><span class="content">4 General definitions</span></h2>
-<h3 class="heading no-num settled" id="4-1-layout"><span class="content">4.1 Layout</span></h3>
+<h2 class="heading no-num settled" id="4-general-definitions"><span class="content">4 General definitions</span><a class="self-link" href="#4-general-definitions"></a></h2>
+<h3 class="heading no-num settled" id="4-1-layout"><span class="content">4.1 Layout</span><a class="self-link" href="#4-1-layout"></a></h3>
 <p>This subclause defines common layout behaviour for processing of timed text or subtitle samples.</p>
 <p>Unless specified by an embedding environment (e.g. an HTML page), the track header box information (i.e. <code>width</code>, <code>height</code>) <span class="rfc-keyword">shall</span> be used to size the subtitle or timed text track content with respect to the associated track(s) as follows:</p>
 <ul class="wl">
@@ -3012,7 +3201,7 @@ NOTE 1	The 3GPP region is not the same as a WebVTT region.
 <div class="note" data-word-style="Note" role="note">
 NOTE 2	Timed text and subtitle tracks are normally stacked in front of the associated visual track(s).
 </div>
-<h3 class="heading no-num settled" id="4-2-timing"><span class="content">4.2 Timing</span></h3>
+<h3 class="heading no-num settled" id="4-2-timing"><span class="content">4.2 Timing</span><a class="self-link" href="#4-2-timing"></a></h3>
 <p>This subclause defines common timing behaviour for processing of timed text or subtitle samples.</p>
 <p>The general processing of timed text or subtitle tracks is that the text content of the sample is delivered to the decoder at the sample decode time, at the latest. The rendering of the sample happens at the presentation time, i.e. taking into account edit lists if any, and for the sample duration, potentially trimmed by the edit list if any.</p>
 <p>NOTE	As defined in ISOBMFF, the presentation is driven by the presentation time. The composition time is determined from the presentation time using the edit list (if present), and the sample active at that composition time is then processed. This specification assumes that at a given presentation time, the renderer is provided with the sample and the composition time, both of which correspond to the given presentation time.</p>
@@ -3023,28 +3212,40 @@ NOTE	If an internal timing value does not fall in the time interval correspondin
 <p>The subclauses defining the storage of specific formats in the ISOBMFF specify how internal timing values relate to the track time or to the sample decode or composition time (see subclauses 5.3 and 6.3). For instance, start or end times <span class="rfc-keyword">may</span> be relative to the start of the sample, or the start of the track.</p>
 <p>For sections of the track timeline that have no associated subtitles or timed text content, ‘empty’ samples <span class="rfc-keyword">may</span> be used, as defined for each format, or the duration of the preceding sample extended. Samples with a size of zero are not used.</p>
 <p>The <code>timescale</code> field in the media header box <span class="rfc-keyword">should</span> be set appropriately to achieve the desired timing accuracy. It is recommended to be set to the value of the <code>timescale</code> field in the media header box of (one of) the associated track(s).</p>
-<h3 class="heading no-num settled" id="4-3-language"><span class="content">4.3 Language</span></h3>
+<p class="note" role="note"><span class="marker">NOTE:</span> As specified in ISO/IEC 14496-12, when movie fragments are used, if the decode time of a sample is not equal to the decode time of the previous sample plus its duration, the duration of that previous sample is extended. As a consequence, a timed text sample duration <span class="rfc-keyword">can</span> be extended. Hence, timed text sample processors are expected to keep processing the document of the last processed sample until the next sample arrives, even if the sample duration is passed. Additionally, in this case, the end time of the document <span class="rfc-keyword">can</span> either not be set or be set to the desired maximum duration that exceeds the initial sample duration.</p>
+<h3 class="heading no-num settled" id="4-3-language"><span class="content">4.3 Language</span><a class="self-link" href="#4-3-language"></a></h3>
 <p>Timed text tracks <span class="rfc-keyword">should</span> be marked with a suitable language in the media header box, indicating the audience for whom the track is appropriate. In the case where it is suitable for a single language, the media header must match that declared language. The value ‘mul’ <span class="rfc-keyword">may</span> be used for a multi-lingual text.</p>
-<h3 class="heading no-num settled" id="4-4-resources-shared-by-multiple-samples"><span class="content">4.4 Resources shared by multiple samples</span></h3>
+<h3 class="heading no-num settled" id="4-4-resources-shared-by-multiple-samples"><span class="content">4.4 Resources shared by multiple samples</span><a class="self-link" href="#4-4-resources-shared-by-multiple-samples"></a></h3>
 <p>Common resources, such as images and fonts that are referred to by URLs, <span class="rfc-keyword">may</span> be stored as items in a MetaBox as defined by ISO/IEC 14496-12. These items <span class="rfc-keyword">may</span> be addressed by using the item_name as a relative URL in the timed text sample, as defined by ISO/IEC 14496-12:2015, 8.11.9.</p>
 <div class="note" data-word-style="Note" role="note">
 NOTE	A derived specification, with its applicable brand, can restrict this use of meta boxes for common items.
 </div>
 <p>Fonts not supplied with the content <span class="rfc-keyword">may</span> be already present on the target system(s), or supplied using any suitable supported mechanism (e.g. font streaming as defined in ISO/IEC 14496-18).</p>
-<h3 class="heading no-num settled" id="4-5-associating-timed-text-tracks"><span class="content">4.5 Associating timed text tracks</span></h3>
+<h3 class="heading no-num settled" id="4-5-associating-timed-text-tracks"><span class="content">4.5 Associating timed text tracks</span><a class="self-link" href="#4-5-associating-timed-text-tracks"></a></h3>
 <p>Timed text tracks <span class="rfc-keyword">may</span> be explicitly or implicitly associated with other tracks in the file. They are explicitly associated with a track when the timed text track uses a track reference of type '<code>subt</code>' to that track, as defined in ISO/IEC 14496-12, or to a track in the same alternate group. If no '<code>subt</code>' track reference is used, the timed text track is said to be implicitly associated to all tracks in the file. In particular, if track groups are not used, the timed text track is associated to all tracks in the file. Association is used to indicate which track(s) a timed text track is intended to overlay and <span class="rfc-keyword">may</span> be used to determine the desired rendered size when that information is not provided in the track header of the timed text track, as defined in subclause 4.1. Timed text and subtitle tracks <span class="rfc-keyword">may</span> be associated with any type of track, including visual tracks (e.g. video tracks, graphics tracks, image tracks) or audio tracks as determined by some external context.</p>
-<h2 class="heading no-num settled" id="5-timed-text-markup-language-ttml"><span class="content">5 Timed Text Markup Language (TTML)</span></h2>
-<h3 class="heading no-num settled" id="5-1-general"><span class="content">5.1 General</span></h3>
+<h3 class="heading no-num settled" id="4-6-maximum-period-of-activation"><span class="content">4.6 Maximum period of activation</span><a class="self-link" href="#4-6-maximum-period-of-activation"></a></h3>
+<p>Box Type: ttma</p>
+<p>Container: XMLSubtitleSampleEntry of type stpc, or WVTTSampleEntry of type wvtc</p>
+<p>Mandatory: Yes, in those sample entries</p>
+<p>Quantity: Exactly one</p>
+<p>The TimedTextMaxActivationBox gives the maximum period of activation T_MPA used in 5.9 and 6.6.</p>
+<pre class="highlight language-c"><c- n="">aligned</c-><c- p="">(</c-><c- mi="">8</c-><c- p="">)</c-> <c- n="">class</c-> <c- n="">TimedTextMaxActivationBox</c-> <c- n="">extends</c-> <c- n="">FullBox</c-><c- p="">(</c->'<c- n="">ttma</c->'<c- p="">,</c-> <c- n="">version</c-> <c- o="">=</c-> <c- mi="">0</c-><c- p="">,</c-> <c- mi="">0</c-><c- p="">)</c-> <c- p="">{</c->
+  <c- b="">unsigned</c-> <c- nf="">int</c-><c- p="">(</c-><c- mi="">32</c-><c- p="">)</c-> <c- n="">max_activation_period</c-><c- p="">;</c->
+<c- p="">}</c->
+</pre>
+<p>max_activation_period is T_MPA in the timescale of the media header box. It <span class="rfc-keyword">shall</span> be greater than zero. It <span class="rfc-keyword">should</span> correspond to 5 s, the value of T_MPA in ETSI EN 303 560.</p>
+<h2 class="heading no-num settled" id="5-timed-text-markup-language-ttml"><span class="content">5 Timed Text Markup Language (TTML)</span><a class="self-link" href="#5-timed-text-markup-language-ttml"></a></h2>
+<h3 class="heading no-num settled" id="5-1-general"><span class="content">5.1 General</span><a class="self-link" href="#5-1-general"></a></h3>
 <p>This subclause describes how documents based on TTML, as defined by the W3C, and derived specifications (for example SMPTE-TT), are carried in files based on the ISO base media file format. A TTML Track is a track carrying TTML documents, which <span class="rfc-keyword">can</span> be documents that correspond to a specification based on TTML.</p>
-<h3 class="heading no-num settled" id="5-2-layout"><span class="content">5.2 Layout</span></h3>
+<h3 class="heading no-num settled" id="5-2-layout"><span class="content">5.2 Layout</span><a class="self-link" href="#5-2-layout"></a></h3>
 <p>Subclause 4.1 defines the general layout behaviour for timed text and subtitle tracks. In particular, this means for TTML tracks that the track width and height provide the spatial extent of the root container, as defined in the TTML Recommendation. Any ‘extent’ attribute declared on the ‘tt’ element in the contained TTML document <span class="rfc-keyword">shall</span> match the track width and height. If the ‘extent’ attribute is not declared on the ‘tt’ element in the contained TTML document, the track header width and height <span class="rfc-keyword">may</span> be set to 0 or to any desired size.</p>
 <div class="note" data-word-style="Note" role="note">
 NOTE	This is used when the document is authored in a resolution-independent manner (e.g. using percentage layout).
 </div>
 <p>Alternatively, when a resolution-independent document has been authored to a specific aspect ratio (whether or not the aspect ratio is explicitly signalled in the document) the <code>track_size_is_aspect_ratio</code> flag <span class="rfc-keyword">may</span> be used to signal the authored aspect ratio. In this case, the track header <code>width</code> and <code>height</code> <span class="rfc-keyword">shall</span> be set to values that indicate the authored aspect ratio (e.g. 16 by 9).</p>
-<h3 class="heading no-num settled" id="5-3-timing"><span class="content">5.3 Timing</span></h3>
+<h3 class="heading no-num settled" id="5-3-timing"><span class="content">5.3 Timing</span><a class="self-link" href="#5-3-timing"></a></h3>
 <p>This subclause defines processing of timing information for TTML documents carried in a TTML track. The general timing processing defined in 4.2 applies, but specific aspects are refined in this subclause. Timing processing is defined only for TTML documents in which ttp:timeBase is ‘media’. For other values, timing processing behaviour is undefined and such documents <span class="rfc-keyword">should not</span> be carried in TTML tracks.</p>
-<p>When the rendering of a sample happens, the TTML document in the sample is provided to the TTML processor, together with the track composition time T of the sample and the sample composition duration d. The TTML processor then uses the interval <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">[</mo><mi>T</mi><mo>,</mo><mi>T</mi><mo>+</mo><mi>d</mi><mo stretchy="false">)</mo></mrow></math> together with the time coordinates <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">{</mo><msub><mi>T</mi><mi>i</mi></msub><mo stretchy="false">}</mo></mrow></math> produced by the “resolve timing” procedure, as defined in TTML, to determine which intermediate synchronic documents (ISDs) to present and for how long. Specifically, track composition time <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>t</mi><mo>∈</mo><mo stretchy="false">[</mo><mi>T</mi><mo>,</mo><mi>T</mi><mo>+</mo><mi>d</mi><mo stretchy="false">)</mo></mrow></math> results in TTML ISD <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>i</mi></mrow></math> being presented, with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>t</mi><mo>∈</mo><mo stretchy="false">[</mo><msub><mi>T</mi><mi>i</mi></msub><mo>,</mo><msub><mi>T</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false">)</mo></mrow></math>.</p>
+<p>When the rendering of a sample happens, the TTML document in the sample is provided to the TTML processor, together with the track composition time T of the sample and the duration d of the active period of the document, as defined in 5.9. The TTML processor then uses the interval <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">[</mo><mi>T</mi><mo>,</mo><mi>T</mi><mo>+</mo><mi>d</mi><mo stretchy="false">)</mo></mrow></math> together with the time coordinates <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">{</mo><msub><mi>T</mi><mi>i</mi></msub><mo stretchy="false">}</mo></mrow></math> produced by the “resolve timing” procedure, as defined in TTML, to determine which intermediate synchronic documents (ISDs) to present and for how long. Specifically, track composition time <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>t</mi><mo>∈</mo><mo stretchy="false">[</mo><mi>T</mi><mo>,</mo><mi>T</mi><mo>+</mo><mi>d</mi><mo stretchy="false">)</mo></mrow></math> results in TTML ISD <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>i</mi></mrow></math> being presented, with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>t</mi><mo>∈</mo><mo stretchy="false">[</mo><msub><mi>T</mi><mi>i</mi></msub><mo>,</mo><msub><mi>T</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false">)</mo></mrow></math>.</p>
 <div class="note" data-word-style="Note" role="note">
 NOTE 1	The fact that time coordinates produced by the TTML processor are interpreted as being on the track composition timeline remains true in the case of segment files, defined in 14496-12. In other words, time coordinates produced by a document stored in a sample of a segment are still relative to time 0 on the track composition timeline and are not relative to the segment start.
 </div>
@@ -3228,15 +3429,16 @@ NOTE 1	The fact that time coordinates produced by the TTML processor are interp
 <p>Samples 3 and 4 contain exactly the same content and illustrate the possibility of having duplicate content in different samples. This <span class="rfc-keyword">can</span> happen for example at the boundaries of segments in segmented files. Both samples will produce the same ISD. In order to avoid possible rendering artefacts such as flickering at the boundary between such samples, decoder implementations <span class="rfc-keyword">can</span> detect such duplicate, adjacent ISDs and keep processing the first ISD. Moreover, for these samples, TTML’s “resolve timing” procedure will produce two ISDs: one with a time interval that is larger than the interval of their containing sample, and one corresponding to an empty document with a time interval outside of the sample interval. As indicated in Table <a data-xref="number" href="#table-2">2</a>, the sample processor will ignore the second ISDs and clip the rendering of each document in the first ISDs to the sample interval.</p>
 <p>Sample 5 also contains the same text content as Sample 3 and 4, but the timing values in the document have been adjusted to match the containing sample interval. Both types of samples result in identical output in this case and both are valid. Sample 5 follows a recommendation that was present in the previous version of this specification that the duration of a TTML document carried in a sample <span class="rfc-keyword">should not</span> be greater than the sample duration.</p>
 <p>Finally, Sample 6 illustrates the case of a document that has no end time. The TTML processor will produce one non-empty ISD with time interval [02:30:00, Infinity). However, the sample processor will display it for the clipped interval defined by the sample composition time and duration.</p>
-<h3 class="heading no-num settled" id="5-4-track-format"><span class="content">5.4 Track format</span></h3>
+<h3 class="heading no-num settled" id="5-4-track-format"><span class="content">5.4 Track format</span><a class="self-link" href="#5-4-track-format"></a></h3>
 <p>TTML streams <span class="rfc-keyword">shall</span> be carried in subtitle tracks, and as a consequence according to ISOBMFF, the media handler type is ‘subt’, and the track uses a subtitle media header, and associated sample entry and sample group base class.</p>
-<h3 class="heading no-num settled" id="5-5-sample-entry-format"><span class="content">5.5 Sample entry format</span></h3>
+<h3 class="heading no-num settled" id="5-5-sample-entry-format"><span class="content">5.5 Sample entry format</span><a class="self-link" href="#5-5-sample-entry-format"></a></h3>
 <p>TTML streams <span class="rfc-keyword">shall</span> use the XMLSubtitleSampleEntry format.</p>
 <p>The namespace field <span class="rfc-keyword">shall</span> be set to at least one unique namespace. It <span class="rfc-keyword">should</span> be set to indicate the primary TTML-based namespace of the document, and <span class="rfc-keyword">should</span> be set to all namespaces in use in the document (e.g. TTML + TTML-Styling + SMPTE-TT).</p>
 <p>The schema_location field <span class="rfc-keyword">should</span> be set to schema pathnames that uniquely identify the profile or constraint set of the namespaces included in the namespace field.</p>
 <p>When sub-samples are present (see 5.6), then the auxiliary_mime_types field <span class="rfc-keyword">shall</span> be set to the mime types used in the sub-samples — e.g. “image/png”.</p>
-<h3 class="heading no-num settled" id="5-6-sample-format"><span class="content">5.6 Sample format</span></h3>
-<p>A TTML subtitle sample <span class="rfc-keyword">shall</span> consist of an XML document, optionally with resources such as images referenced by the XML document. Every sample is therefore a sync sample in this format; hence, the sync sample table is not present.</p>
+<p>TTML streams in which a document <span class="rfc-keyword">can</span> remain active beyond the duration of its sample, as defined in 5.9, <span class="rfc-keyword">shall</span> use the XMLSubtitleSampleEntry format with the sample entry type stpc. The syntax and the semantics of the fields are as for stpp. The sample entry <span class="rfc-keyword">shall</span> contain a TimedTextMaxActivationBox.</p>
+<h3 class="heading no-num settled" id="5-6-sample-format"><span class="content">5.6 Sample format</span><a class="self-link" href="#5-6-sample-format"></a></h3>
+<p>A TTML subtitle sample <span class="rfc-keyword">shall</span> consist of an XML document, optionally with resources such as images referenced by the XML document. In tracks with the sample entry type stpp, every sample is therefore a sync sample; hence, the sync sample table is not present. Sync samples in tracks with the sample entry type stpc are specified below.</p>
 <p>Other resources such as images are optional. Resources referenced by an XML document <span class="rfc-keyword">may</span> be stored in the same subtitle sample as the document that references them, in which case they <span class="rfc-keyword">shall</span> be stored contiguously following the XML document that references those resources. Resources <span class="rfc-keyword">should</span> be stored in presentation time order.</p>
 <p>When resources are stored in a sample, the Track Fragment Box (‘traf’) <span class="rfc-keyword">shall</span> contain a Sub-Sample Information Box (‘subs’) constrained as follows:</p>
 <ul>
@@ -3277,13 +3479,37 @@ NOTE	The text in the images is just an example and not meant to constrain or imp
 <p>An ‘empty’ sample is defined as containing a TTML document that has no content. A TTML document that has no content is any document that contains (a) no <code>&lt;div&gt;</code> element or (b) no <code>&lt;body&gt;</code> element or (c) no <code>&lt;p&gt;</code> or <code>&lt;span&gt;</code> elements containing character data or <code>&lt;br&gt;</code> elements; for example, the following document:</p>
 <pre>&lt;tt xml:lang="" xmlns="http://www.w3.org/ns/ttml"/&gt;
 </pre>
-<h3 class="heading no-num settled" id="5-7-additional-considerations"><span class="content">5.7 Additional considerations</span></h3>
+<p>In tracks with the sample entry type stpc, a sample is either a TTML document, with optional resources as above, or exactly one TTMLNoChangeBox. A sample is a TTMLNoChangeBox when its first eight bytes are a box header of that type whose size equals the sample size. Any other sample is a document.
+A TTMLNoChangeBox does not supersede the active document. The active document continues, and its own timing continues to apply.
+In tracks with the sample entry type stpc, a sample that is a TTML document is a sync sample. A sample that is a TTMLNoChangeBox is not a sync sample. The sync sample table or the sample flags <span class="rfc-keyword">shall</span> signal this. Each segment, as defined in ISO/IEC 14496-12, <span class="rfc-keyword">shall</span> begin with a sync sample. As for stpp, each track fragment contains a single sample.</p>
+<pre class="highlight language-c"><c- n="">aligned</c-><c- p="">(</c-><c- mi="">8</c-><c- p="">)</c-> <c- n="">class</c-> <c- n="">TTMLNoChangeBox</c-> <c- n="">extends</c-> <c- n="">Box</c-><c- p="">(</c->'<c- n="">ttmn</c->'<c- p="">)</c-> <c- p="">{</c->
+  <c- c1="">// no defined contents, box must be empty</c->
+<c- p="">}</c->
+</pre>
+<p>In tracks with the sample entry type stpc, a sample <span class="rfc-keyword">may</span> also be exactly one TTMLBodyBox. A sample is a TTMLBodyBox when its first eight bytes are a box header of that type whose size equals the sample size. It is not a sync sample. The document of such a sample is the document of the most recent preceding sync sample in the same segment, with its <code>&lt;body&gt;</code> element replaced by the content of the box. The document of that sync sample <span class="rfc-keyword">shall</span> contain a <code>&lt;body&gt;</code> element, which <span class="rfc-keyword">may</span> be empty.</p>
+<pre class="highlight language-c"><c- n="">aligned</c-><c- p="">(</c-><c- mi="">8</c-><c- p="">)</c-> <c- n="">class</c-> <c- n="">TTMLBodyBox</c-> <c- n="">extends</c-> <c- n="">Box</c-><c- p="">(</c->'<c- n="">ttmb</c->'<c- p="">)</c-> <c- p="">{</c->
+  <c- n="">boxstring</c-> <c- n="">body</c-><c- p="">;</c->
+<c- p="">}</c->
+</pre>
+<p><code>body</code> is a complete TTML <code>&lt;body&gt;</code> element in UTF-8. The namespaces in scope are those of the root element of the document of the sync sample.</p>
+<div class="note" role="note">
+    Editor’s note: Alternative/additional options could be to:
+
+
+    <ul>
+<li data-md="">
+<p>Make body samples be sync samples by storing the TTML document header in the sample entry</p>
+</li><li data-md="">
+<p>Permit some body samples to be incremental, i.e. instead of replacing the existing body, the content of the new body could be appended to the previous body.</p>
+</li></ul>
+</div>
+<h3 class="heading no-num settled" id="5-7-additional-considerations"><span class="content">5.7 Additional considerations</span><a class="self-link" href="#5-7-additional-considerations"></a></h3>
 <p>The following additional considerations <span class="rfc-keyword">should</span> be addressed by users of this carriage:</p>
 <ul>
 <li>Unicode character codes allowed;
     </li><li>fonts and styles allowed.
    </li></ul>
-<h3 class="heading no-num settled" id="5-8-codecs-parameter"><span class="content">5.8 Codecs parameter</span></h3>
+<h3 class="heading no-num settled" id="5-8-codecs-parameter"><span class="content">5.8 Codecs parameter</span><a class="self-link" href="#5-8-codecs-parameter"></a></h3>
 <p>The '<code>codecs</code>' parameter for TTML tracks is as defined in RFC 6381 with the following specifics. The first element is the four-character code of the sample description entry of the XML Subtitle Sample Entry of the track, i.e. '<code>stpp</code>'. Additional optional elements are as follows.</p>
 <p>When the <code>namespace</code> field of the <code>XMLSubtitleSampleEntry</code> contains any namespace value from the namespace table in W3C Recommendation, Timed Text Markup Language 1.0, Section 5.1, the second element is the four-character code '<code>ttml</code>'. If this element is omitted, then a client <span class="rfc-keyword">should</span> download the track sample description information to examine the track header <code>namespace</code> field and confirm the presence of the TTML namespace.</p>
 <p>When the second element is present and set to '<code>ttml</code>', then a third element <span class="rfc-keyword">may</span> be present that describes the profile(s) that the presentation processor needs to support in order to process the document. Its value <span class="rfc-keyword">may</span> either be a single four-character code, referred to as profile identifier, in the TTML Profile Registry maintained by the W3C or as a combination of profile identifiers, using the '+' and '|' operators, as defined in the registry.</p>
@@ -3293,15 +3519,33 @@ NOTE 1	The process to derive the profile identifier(s) from the TTML documents s
 <div class="note" data-word-style="Note" role="note">
 NOTE 2	The TTML profile can be documented in the TTML document or as a parameter to the MIME type in the MIME box as defined in ISO/IEC 14496-12:2015 Amd 2:2018.
 </div>
-<h3 class="heading no-num settled" id="5-9-document-temporal-boundaries"><span class="content">5.9 Document temporal boundaries</span></h3>
+<p>For tracks with the sample entry type stpc, the first element is stpc. The second and third elements are as for stpp.</p>
+<h3 class="heading no-num settled" id="5-9-document-temporal-boundaries"><span class="content">5.9 Document temporal boundaries</span><a class="self-link" href="#5-9-document-temporal-boundaries"></a></h3>
 <ul class="wl">
 <li data-word-style="List Number 1" style="margin-left:0pt;--wl-hang:20.15pt"><span class="wl-label" style="display:inline-block;min-width:var(--wl-hang,1.5em);margin-left:calc(-1 * var(--wl-hang,1.5em));text-indent:0;white-space:pre">a) </span>The earliest begin time of an element in a TTML document <span class="rfc-keyword">can</span> be non-coincident (earlier or later) with the composition time of the containing sample, and the latest computed end time of an element in the TTML document <span class="rfc-keyword">can</span> be non-coincident (earlier or later) with the end of the sample, which is equal to its composition time plus sample duration.
     </li><li data-word-style="List Number 1" style="margin-left:0pt;--wl-hang:20.15pt"><span class="wl-label" style="display:inline-block;min-width:var(--wl-hang,1.5em);margin-left:calc(-1 * var(--wl-hang,1.5em));text-indent:0;white-space:pre">b) </span>TTML content that falls partially or wholly within the duration of a sample <span class="rfc-keyword">can</span> be present (duplicated) in adjacent samples.
-    </li><li data-word-style="List Number 1" style="margin-left:0pt;--wl-hang:20.15pt"><span class="wl-label" style="display:inline-block;min-width:var(--wl-hang,1.5em);margin-left:calc(-1 * var(--wl-hang,1.5em));text-indent:0;white-space:pre">c) </span>Only one sample and document within a Timed Text Track <span class="rfc-keyword">can</span> be active at any moment in the presentation. The presentation of every document is constrained in time to the period beginning at the composition time of the containing sample with the duration of that sample. As a consequence, any timed content within a document that extends outside of that period is expected to be temporally clipped and not to result in any impact on presentation prior to or later than the sample’s composition time and duration.
-   </li></ul>
-<h3 class="heading no-num settled" id="5-10-profiles-and-buffering-constraints"><span class="content">5.10 Profiles and buffering constraints</span></h3>
+    </li><li data-word-style="List Number 1" style="margin-left:0pt;--wl-hang:20.15pt"><span class="wl-label" style="display:inline-block;min-width:var(--wl-hang,1.5em);margin-left:calc(-1 * var(--wl-hang,1.5em));text-indent:0;white-space:pre">c) </span>
+     Only one sample and document within a Timed Text Track <span class="rfc-keyword">can</span> be active at any moment in the presentation.
+  For tracks using the XMLSubtitleSampleEntry format with the type stpp, the presentation of every document is constrained in time to the period beginning at the composition time of the containing sample with the duration of that sample. As a consequence, any timed content within a document that extends outside of that period is expected to be temporally clipped and not to result in any impact on presentation prior to or later than the sample’s composition time and duration.
+
+
+     <p>For tracks using the sample entry type stpc (see 5.5), the active period of a document begins at the composition time of the containing sample. It ends at the earlier of:</p>
+<ul>
+<li data-word-style="List Number 1"><span class="wl-label" style="display:inline-block;min-width:var(--wl-hang,1.5em);margin-left:calc(-1 * var(--wl-hang,1.5em));text-indent:0;white-space:pre">i) </span>the composition time of the next sample that is not a TTMLNoChangeBox;
+      </li><li data-word-style="List Number 1"><span class="wl-label" style="display:inline-block;min-width:var(--wl-hang,1.5em);margin-left:calc(-1 * var(--wl-hang,1.5em));text-indent:0;white-space:pre">ii) </span>the time CT + max(d, T_MPA), where CT and d are the composition time and duration of the latest sample of any kind in the track whose composition time is not later than the current presentation time, and T_MPA is given by the TimedTextMaxActivationBox in the sample entry.
+     </li></ul>
+     
+  The active period does not extend beyond the end of the presentation of the track, as given by the edit list or the track duration when these are known.
+
+
+     <p class="note" role="note"><span class="marker">NOTE:</span> In segmented delivery, the delivery format <span class="rfc-keyword">can</span> end the presentation of a track earlier. In DASH, for example, a</p>
+<p>Representation is presented only until the end of its Period (ISO/IEC 23009-1).
+  Timed content within a document that extends outside its active period is temporally clipped to that period.</p>
+<p class="note" role="note"><span class="marker">NOTE:</span> When the samples of a track tile the timeline, condition i) always applies first: the active period runs from the composition time of the sample to that of the next sample that carries a document, and equals the sample duration when that is the next sample. Condition ii) applies only when later samples are missing or delayed.</p>
+</li></ul>
+<h3 class="heading no-num settled" id="5-10-profiles-and-buffering-constraints"><span class="content">5.10 Profiles and buffering constraints</span><a class="self-link" href="#5-10-profiles-and-buffering-constraints"></a></h3>
 <p data-word-style="Body Text Indent">The present document does not define a transport layer buffer or timing model. Such a model <span class="rfc-keyword">can</span> be used to guarantee that subtitle content <span class="rfc-keyword">can</span> be read and processed in time to be synchronously presented with audio and video. It is assumed that users of this track format will define timed text content profiles and hypothetical render models (HRM) that will constrain content parameters so that compatible decoders <span class="rfc-keyword">can</span> identify and decode those profiles for synchronous presentation. For example, the IMSC1 profiles define such an HRM.</p>
-<p data-word-style="Body Text Indent">When a track carries IMSC1 documents, and for the purpose of verifying HRM constraints, the sequence of ISDs to be used by the algorithm defined in IMSC1 is the one made of all the ISDs produced by all the sample processing defined in 5.3, i.e. after potential clipping by the sample interval.</p>
+<p data-word-style="Body Text Indent">When a track carries IMSC1 documents, and for the purpose of verifying HRM constraints, the sequence of ISDs to be used by the algorithm defined in IMSC1 is the one made of all the ISDs produced by all the sample processing defined in 5.3, i.e. after potential clipping by the active period defined in 5.9.</p>
 <p data-word-style="Body Text Indent">The following non-exhaustive list of document constraints <span class="rfc-keyword">may</span> need to be specified to define a timed text profile that will guarantee synchronous decoding of conforming content on conforming decoders:</p>
 <ul>
 <li>maximum allowed document size;
@@ -3319,16 +3563,16 @@ NOTE 2	The TTML profile can be documented in the TTML document or as a parameter
 <div class="note" data-word-style="Note indent" role="note">
 NOTE	Defining timed text content profiles is outside the scope of this document but providing a method to signal an externally defined timed text profile in the subtitle sample description is possible using the sample entry description.
 </div>
-<h2 class="heading no-num settled" id="6-web-video-text-tracks-webvtt"><span class="content">6 Web Video Text Tracks (WebVTT)</span></h2>
-<h3 class="heading no-num settled" id="6-1-general"><span class="content">6.1 General</span></h3>
+<h2 class="heading no-num settled" id="6-web-video-text-tracks-webvtt"><span class="content">6 Web Video Text Tracks (WebVTT)</span><a class="self-link" href="#6-web-video-text-tracks-webvtt"></a></h2>
+<h3 class="heading no-num settled" id="6-1-general"><span class="content">6.1 General</span><a class="self-link" href="#6-1-general"></a></h3>
 <p>This clause defines how documents based on W3C Community Group Report, <em>WebVTT</em> are carried in files based on the ISO base media file format.</p>
 <p>WebVTT text content in tracks is encoded using UTF-8, and the data-type <code>boxstring</code> indicates an array of UTF-8 bytes, to fill the enclosing box, with neither a leading character count nor a trailing null terminator.</p>
 <p>Each WebVTT cue, as defined in W3C Community Group Report, <em>WebVTT</em>, is stored de-constructed, partly to emphasize that the textual timestamps one would normally find in a WebVTT file do <em>not</em> determine presentation timing; the ISO file structures do. It also separates the text of the actual cue from the structural information that the WebVTT file carries (positioning, timing, and so on). WebVTT cues are stored in a typical ISO boxed structured approach to enable interfacing an ISO file reader with a WebVTT renderer without the need to serialize the sample content as WebVTT text and to parse it again.</p>
 <p>Boxes <span class="rfc-keyword">shall not</span> contain trailing CR or LF characters, or trailing CRLF sequences (where ‘trailing’ means that they occur last in the payload of the box).</p>
-<h3 class="heading no-num settled" id="6-2-layout"><span class="content">6.2 Layout</span></h3>
+<h3 class="heading no-num settled" id="6-2-layout"><span class="content">6.2 Layout</span><a class="self-link" href="#6-2-layout"></a></h3>
 <p>Subclause 4.1 defines the general layout behaviour for timed text and subtitle tracks, which is applicable to WebVTT tracks.</p>
-<h3 class="heading no-num settled" id="6-3-timing"><span class="content">6.3 Timing</span></h3>
-<p>Following the general timing processing defined in 4.2, each cue <span class="rfc-keyword">shall</span> be passed to the WebVTT renderer at the time from the time-to-sample table, as mapped by the edit list (if any). The times derived for a sample from the durations in the time-to-sample table reflect the start and end-time of all cues in that sample. All samples are sync samples; the sync sample table is not used.</p>
+<h3 class="heading no-num settled" id="6-3-timing"><span class="content">6.3 Timing</span><a class="self-link" href="#6-3-timing"></a></h3>
+<p>Following the general timing processing defined in 4.2, each cue <span class="rfc-keyword">shall</span> be passed to the WebVTT renderer at the time from the time-to-sample table, as mapped by the edit list (if any). The times derived for a sample from the durations in the time-to-sample table reflect the start and end-time of all cues in that sample. In tracks with the sample entry type wvtt, all samples are sync samples; the sync sample table is not used.</p>
 <p>If there is internal timing value in a cue, each sample must be labelled with the VTT time that corresponds to the sample start time on the VTT time line.</p>
 <div class="note" data-word-style="Note" role="note">
 NOTE 1	This enables reconstructing a correct internal timing value, when the time-to-sample table is edited.
@@ -3337,10 +3581,11 @@ NOTE 1	This enables reconstructing a correct internal timing value, when the ti
 NOTE 2	Internal timestamps within the cue that precede this current time would be already “:past” at the start of the sample, for example.
 </div>
 <p data-word-style="Body Text Indent">When a file writer identifies a cue with indefinite duration, since the cue has no end-time, setting an accurate value for the sample duration might not be possible. In that case, the file writer <span class="rfc-keyword">may</span> rely on tools defined in ISO/IEC 14496-12. If the sample is the last one in the track, ISO/IEC 14496-12:2015, 8.6.1.1 permits setting a zero duration for that sample. If the sample is not the last one in the track, ISO/IEC 14496-12 defines cases when a sample duration <span class="rfc-keyword">can</span> be extended by subsequent information: either using redundant samples (see ISO/IEC 14496-12:2015, 8.6.4.1); or in fragmented tracks, if the sample is the last in the fragment using the <code>TrackFragmentDecodeTime</code> box of the next fragment (see ISO/IEC 14496-12:2015, 8.8.12.1). If such sample duration extension is used, setting an accurate duration is not needed and the file writer <span class="rfc-keyword">may</span> choose an arbitrary short duration for the sample.</p>
-<p data-word-style="Body Text Indent">Additionally, if the sample containing a cue with indefinite duration is not the last one, since every sample in a WebVTT track is a sync sample, file writers <span class="rfc-keyword">shall</span> duplicate the indefinite cue content in all subsequent samples.</p>
-<h3 class="heading no-num settled" id="6-4-track-format"><span class="content">6.4 Track format</span></h3>
+<p data-word-style="Body Text Indent">Additionally, if the sample containing a cue with indefinite duration is not the last one, since every sample in a track with the sample entry type wvtt is a sync sample, file writers <span class="rfc-keyword">shall</span> duplicate the indefinite cue content in all subsequent samples.</p>
+<p>In tracks with the sample entry type wvtc, a file writer <span class="rfc-keyword">may</span> instead write VTTNoChangeBox samples after the sample that contains the cue, until the segment ends.</p>
+<h3 class="heading no-num settled" id="6-4-track-format"><span class="content">6.4 Track format</span><a class="self-link" href="#6-4-track-format"></a></h3>
 <p>WebVTT streams <span class="rfc-keyword">shall</span> be carried as timed text tracks, and as a consequence according to ISOBMFF, use the '<code>text</code>' media handler type, and the associated media header, sample entry, and sample group base class.</p>
-<h3 class="heading no-num settled" id="6-5-sample-entry-format"><span class="content">6.5 Sample entry format</span></h3>
+<h3 class="heading no-num settled" id="6-5-sample-entry-format"><span class="content">6.5 Sample entry format</span><a class="self-link" href="#6-5-sample-entry-format"></a></h3>
 <p>WebVTT streams <span class="rfc-keyword">shall</span> use the WVTTSampleEntry format.</p>
 <p>In the sample entry, a WebVTT configuration box must occur, carrying exactly the lines of the WebVTT file header, i.e. all text lines up to but excluding the ‘two or more line terminators’ that end the header.</p>
 <div class="note" data-word-style="Note" role="note">
@@ -3350,26 +3595,36 @@ NOTE	Other boxes may be defined for the sample entry in future revisions of this
 <div class="note" data-word-style="Note" role="note">
 NOTE	The '<code>codecs</code>' parameter for WebVTT streams as defined in RFC 6381 uses only one element, the four-character code of the sample description entry for the stream, i.e. '<code>wvtt</code>'.
 </div>
-<pre>class WebVTTConfigurationBox extends Box('vttC') {
-   boxstring   config;
-}
-class WebVTTSourceLabelBox extends Box('vlab') {
-   boxstring   source_label;
-}
-class WVTTSampleEntry() extends PlainTextSampleEntry (‘wvtt’){
-   WebVTTConfigurationBox   config;
-   WebVTTSourceLabelBox     label;   // recommended
-   BitRateBox               bitrate;
-                               // optional, as defined in ISO/IEC 14496-12
-}
+<pre class="highlight language-c"><c- n="">class</c-> <c- n="">WebVTTConfigurationBox</c-> <c- n="">extends</c-> <c- n="">Box</c-><c- p="">(</c->'<c- n="">vttC</c->'<c- p="">)</c-> <c- p="">{</c->
+   <c- n="">boxstring</c->   <c- n="">config</c-><c- p="">;</c->
+<c- p="">}</c->
+<c- n="">class</c-> <c- n="">WebVTTSourceLabelBox</c-> <c- n="">extends</c-> <c- n="">Box</c-><c- p="">(</c->'<c- n="">vlab</c->'<c- p="">)</c-> <c- p="">{</c->
+   <c- n="">boxstring</c->   <c- n="">source_label</c-><c- p="">;</c->
+<c- p="">}</c->
+<c- n="">class</c-> <c- n="">WVTTSampleEntry</c-><c- p="">()</c-> <c- n="">extends</c-> <c- n="">PlainTextSampleEntry</c-> <c- p="">(</c->‘<c- n="">wvtt</c->’<c- p="">){</c->
+   <c- n="">WebVTTConfigurationBox</c->   <c- n="">config</c-><c- p="">;</c->
+   <c- n="">WebVTTSourceLabelBox</c->     <c- n="">label</c-><c- p="">;</c->   <c- c1="">// recommended</c->
+   <c- n="">BitRateBox</c->               <c- n="">bitrate</c-><c- p="">;</c->
+                               <c- c1="">// optional, as defined in ISO/IEC 14496-12</c->
+<c- p="">}</c->
 </pre>
-<h3 class="heading no-num settled" id="6-6-sample-format"><span class="content">6.6 Sample format</span></h3>
+<p>WebVTT streams in which the cues of a sample <span class="rfc-keyword">can</span> remain active beyond the duration of the sample, as defined in 6.6, <span class="rfc-keyword">shall</span> use the WVTTSampleEntry format with the sample entry type wvtc. The sample entry <span class="rfc-keyword">shall</span> contain a TimedTextMaxActivationBox.</p>
+<p class="note" role="note"><span class="marker">NOTE:</span> The codecs parameter for such streams is wvtc.</p>
+<h3 class="heading no-num settled" id="6-6-sample-format"><span class="content">6.6 Sample format</span><a class="self-link" href="#6-6-sample-format"></a></h3>
 <p>The character replacements as specified in step 1 of the WebVTT parsing algorithm, <span class="rfc-keyword">may</span> be applied before VTT data is stored in this format. Readers <span class="rfc-keyword">should</span> be prepared to apply these replacements if integrated directly with a WebVTT renderer.</p>
 <p>Each sample is either</p>
 <ul class="wl">
 <li data-word-style="List Number 1" style="margin-left:0pt;--wl-hang:20.15pt"><span class="wl-label" style="display:inline-block;min-width:var(--wl-hang,1.5em);margin-left:calc(-1 * var(--wl-hang,1.5em));text-indent:0;white-space:pre">a) </span>exactly one VTTEmptyCueBox box (representing a period of non-zero duration in which there is no cue data), or
-    </li><li data-word-style="List Number 1" style="margin-left:0pt;--wl-hang:20.15pt"><span class="wl-label" style="display:inline-block;min-width:var(--wl-hang,1.5em);margin-left:calc(-1 * var(--wl-hang,1.5em));text-indent:0;white-space:pre">b) </span>one or more VTTCueBox boxes that share the same start time and end time, each containing the following boxes. Only the CuePayloadBox is mandatory, all others are optional. A sample containing cue boxes <span class="rfc-keyword">may</span> also contain zero or more VTTAdditionalTextBox boxes, interleaved between VTTCueBox boxes and carrying any other text in between cues, in the order required by the processing of the additional text, if any.
-   </li></ul>
+    </li><li data-word-style="List Number 1" style="margin-left:0pt;--wl-hang:20.15pt"><span class="wl-label" style="display:inline-block;min-width:var(--wl-hang,1.5em);margin-left:calc(-1 * var(--wl-hang,1.5em));text-indent:0;white-space:pre">b) </span>one or more VTTCueBox boxes that share the same start time and end time, each containing the following boxes. Only the CuePayloadBox is mandatory, all others are optional. A sample containing cue boxes <span class="rfc-keyword">may</span> also contain zero or more VTTAdditionalTextBox boxes, interleaved between VTTCueBox boxes and carrying any other text in between cues, in the order required by the processing of the additional text, if any, or
+    </li><li data-word-style="List Number 1" style="margin-left:0pt;--wl-hang:20.15pt"><span class="wl-label" style="display:inline-block;min-width:var(--wl-hang,1.5em);margin-left:calc(-1 * var(--wl-hang,1.5em));text-indent:0;white-space:pre">c) </span>
+     in tracks with the sample entry type wvtc only, exactly one VTTNoChangeBox, which indicates that the cues of the most recent sample of type a) or b) continue for the duration of this sample.
+
+
+     <p>In tracks with the sample entry type wvtc, a sample that is a VTTNoChangeBox is not a sync sample, and each segment, as defined in ISO/IEC 14496-12, <span class="rfc-keyword">shall</span> begin with a sync sample. As for wvtt, a track fragment <span class="rfc-keyword">may</span> contain more than one sample.</p>
+<pre>aligned(8) class VTTNoChangeBox extends Box('vttn') {
+   // no defined contents, box must be empty
+}</pre>
+</li></ul>
 <p>The VTTCueBox boxes must be in presentation order, i.e. if imported from a WebVTT file, the cues in any given sample must be in the order they were in the WebVTT file.</p>
 <p>It is recommended that the contents of the VTTCueBox boxes occur in the order shown in the syntax, but the order is not mandatory.</p>
 <p>If a cue has WebVTT Cue Settings, they are placed into a CueSettingsBox without the leading space that separates timing and settings.</p>
@@ -3381,41 +3636,42 @@ class WVTTSampleEntry() extends PlainTextSampleEntry (‘wvtt’){
 NOTE	The sample entry code is '<code>vttC</code>'; in contrast the VTTCueBox is '<code>vttc</code>' and their container is also different.
 </div>
 <p>In the CuePayloadBox there must be no blank lines (but there <span class="rfc-keyword">may</span> be multiple lines).</p>
-<pre>aligned(8) class VTTCueBox extends Box('vttc') {
-   CueSourceIDBox()   // optional source ID
-   CueIDBox();        // optional
-   CueTimeBox();      // optional current time indication
-   CueSettingsBox();  // optional, cue settings
-   CuePayloadBox();   // the (mandatory) cue payload lines
-};
-class CueSourceIDBox extends Box('vsid') {
-   int(32)   source_ID;   // when absent, takes a special 'always unique' value
-}
-class CueTimeBox extends Box('ctim') {
-   boxstring   cue_current_time;
-}
-class CueIDBox extends Box('iden') {
-   boxstring   cue_id;
-}
-class CueSettingsBox extends Box('sttg') {
-   boxstring   settings;
-}
-class CuePayloadBox extends Box('payl') {
-   boxstring   cue_text;
-}
-// These next two are peers to the VTTCueBox
-aligned(8) class VTTEmptyCueBox extends Box('vtte') {
-   // currently no defined contents, box must be empty
-};
-class VTTAdditionalTextBox extends Box('vtta') {
-   boxstring   cue_additional_text;
-}
+<pre class="highlight language-c"><c- n="">aligned</c-><c- p="">(</c-><c- mi="">8</c-><c- p="">)</c-> <c- n="">class</c-> <c- n="">VTTCueBox</c-> <c- n="">extends</c-> <c- n="">Box</c-><c- p="">(</c->'<c- n="">vttc</c->'<c- p="">)</c-> <c- p="">{</c->
+   <c- n="">CueSourceIDBox</c-><c- p="">()</c->   <c- c1="">// optional source ID</c->
+   <c- n="">CueIDBox</c-><c- p="">();</c->        <c- c1="">// optional</c->
+   <c- n="">CueTimeBox</c-><c- p="">();</c->      <c- c1="">// optional current time indication</c->
+   <c- n="">CueSettingsBox</c-><c- p="">();</c->  <c- c1="">// optional, cue settings</c->
+   <c- n="">CuePayloadBox</c-><c- p="">();</c->   <c- c1="">// the (mandatory) cue payload lines</c->
+<c- p="">};</c->
+<c- n="">class</c-> <c- n="">CueSourceIDBox</c-> <c- n="">extends</c-> <c- n="">Box</c-><c- p="">(</c->'<c- n="">vsid</c->'<c- p="">)</c-> <c- p="">{</c->
+   <c- b="">int</c-><c- p="">(</c-><c- mi="">32</c-><c- p="">)</c->   <c- n="">source_ID</c-><c- p="">;</c->   <c- c1="">// when absent, takes a special 'always unique' value</c->
+<c- p="">}</c->
+<c- n="">class</c-> <c- n="">CueTimeBox</c-> <c- n="">extends</c-> <c- n="">Box</c-><c- p="">(</c->'<c- n="">ctim</c->'<c- p="">)</c-> <c- p="">{</c->
+   <c- n="">boxstring</c->   <c- n="">cue_current_time</c-><c- p="">;</c->
+<c- p="">}</c->
+<c- n="">class</c-> <c- n="">CueIDBox</c-> <c- n="">extends</c-> <c- n="">Box</c-><c- p="">(</c->'<c- n="">iden</c->'<c- p="">)</c-> <c- p="">{</c->
+   <c- n="">boxstring</c->   <c- n="">cue_id</c-><c- p="">;</c->
+<c- p="">}</c->
+<c- n="">class</c-> <c- n="">CueSettingsBox</c-> <c- n="">extends</c-> <c- n="">Box</c-><c- p="">(</c->'<c- n="">sttg</c->'<c- p="">)</c-> <c- p="">{</c->
+   <c- n="">boxstring</c->   <c- n="">settings</c-><c- p="">;</c->
+<c- p="">}</c->
+<c- n="">class</c-> <c- n="">CuePayloadBox</c-> <c- n="">extends</c-> <c- n="">Box</c-><c- p="">(</c->'<c- n="">payl</c->'<c- p="">)</c-> <c- p="">{</c->
+   <c- n="">boxstring</c->   <c- n="">cue_text</c-><c- p="">;</c->
+<c- p="">}</c->
+<c- c1="">// These next two are peers to the VTTCueBox</c->
+<c- n="">aligned</c-><c- p="">(</c-><c- mi="">8</c-><c- p="">)</c-> <c- n="">class</c-> <c- n="">VTTEmptyCueBox</c-> <c- n="">extends</c-> <c- n="">Box</c-><c- p="">(</c->'<c- n="">vtte</c->'<c- p="">)</c-> <c- p="">{</c->
+   <c- c1="">// currently no defined contents, box must be empty</c->
+<c- p="">};</c->
+<c- n="">class</c-> <c- n="">VTTAdditionalTextBox</c-> <c- n="">extends</c-> <c- n="">Box</c-><c- p="">(</c->'<c- n="">vtta</c->'<c- p="">)</c-> <c- p="">{</c->
+   <c- n="">boxstring</c->   <c- n="">cue_additional_text</c-><c- p="">;</c->
+<c- p="">}</c->
 </pre>
 <p>Free space boxes and unrecognized boxes in any sample, or within the VTTCueBox or VTTEmptyCueBox <span class="rfc-keyword">may</span> be present and <span class="rfc-keyword">should</span> be ignored.</p>
-<h3 class="heading no-num settled" id="6-7-converting-to-or-from-a-webvtt-text-file"><span class="content">6.7 Converting to or from a WebVTT text file</span></h3>
-<h4 class="heading no-num settled" id="6-7-1-general"><span class="content">6.7.1 General</span></h4>
+<p>In tracks with the sample entry type wvtc (see 6.5), if no later sample is present, the cues of the most recent sample of type a) or b) remain active until CT + max(d, T_MPA), where CT and d are the composition time and duration of the latest sample of any kind, and T_MPA is given by the TimedTextMaxActivationBox in the sample entry. As for stpc (5.9), they do not remain active beyond the end of the presentation of the track.</p>
+<h3 class="heading no-num settled" id="6-7-converting-to-or-from-a-webvtt-text-file"><span class="content">6.7 Converting to or from a WebVTT text file</span><a class="self-link" href="#6-7-converting-to-or-from-a-webvtt-text-file"></a></h3>
+<h4 class="heading no-num settled" id="6-7-1-general"><span class="content">6.7.1 General</span><a class="self-link" href="#6-7-1-general"></a></h4>
 <p>This subclause connects the box structure to the parsing process for a WebVTT file as defined in W3C Community Group Report, <em>WebVTT</em>, Section 5. Underlined terms here correspond to defined terms in that report.</p>
-<h4 class="heading no-num settled" id="6-7-2-importing-a-webvtt-file-into-the-iso-base-media-file-format"><span class="content">6.7.2 Importing a WebVTT file into the ISO base media file format</span></h4>
+<h4 class="heading no-num settled" id="6-7-2-importing-a-webvtt-file-into-the-iso-base-media-file-format"><span class="content">6.7.2 Importing a WebVTT file into the ISO base media file format</span><a class="self-link" href="#6-7-2-importing-a-webvtt-file-into-the-iso-base-media-file-format"></a></h4>
 <p>Prior to import, the character replacements as specified in step 1 of the WebVTT parsing algorithm, <span class="rfc-keyword">may</span> be applied.</p>
 <p>The initial part of the file, from the first characters (the string ‘WEBVTT’), up to but not including the ‘two or more line terminators’ are placed into the WebVTTConfigurationBox.</p>
 <p>The WebVTT Cue Timings of each WebVTT Cue are processed to form a set of samples that are contiguous and non-overlapping in time as follows:</p>
@@ -3430,14 +3686,14 @@ class VTTAdditionalTextBox extends Box('vtta') {
 <p data-word-style="Body Text indent 1" style="margin-left:20.15pt">3)	If the cue contains WebVTT cue timestamp, then a CueTimeBox is placed into the VTTCueBox;</p>
 <p data-word-style="Body Text indent 1" style="margin-left:20.15pt">4)	The WebVTT Cue Settings, if they exist, are placed into a CueSettingsBox;</p>
 <p data-word-style="Body Text indent 1" style="margin-left:20.15pt">5)	The Cue Payload, without the following two or more line terminators, is placed into the CuePayload box.</p>
-<h4 class="heading no-num settled" id="6-7-3-exporting-a-webvtt-file-from-the-iso-base-media-file-format"><span class="content">6.7.3 Exporting a WebVTT file from the ISO base media file format</span></h4>
+<h4 class="heading no-num settled" id="6-7-3-exporting-a-webvtt-file-from-the-iso-base-media-file-format"><span class="content">6.7.3 Exporting a WebVTT file from the ISO base media file format</span><a class="self-link" href="#6-7-3-exporting-a-webvtt-file-from-the-iso-base-media-file-format"></a></h4>
 <p>To form a WebVTT file from the track, the file is started with the contents of the WebVTTConfigurationBox, followed by two line terminators.</p>
 <p>The cue boxes of each sample are processed separately. Each cue box is marked with its start and end time, derived from the sample times (including the edit list).</p>
 <p>The ‘continuation cues’ (adjacent samples that use the same sample entry and containing cues that have the same source_ID) <span class="rfc-keyword">may</span> be merged with their preceding matching cue or continuation cue, and the end time offset set to the end time of the later continuation cue.</p>
 <p>The internal timing values of each cue are adjusted to be relative to the start time offset.</p>
 <p>Each cue is then written to the file: the optional WebVTT Cue Identifier from the CueIDBox, if it exists, followed by a line terminator; the WebVTT Timings, computed as above; the WebVTT Cue Settings from the CueSettings box, if it exists; and the Cue Payload from the CuePayload box. Each WebVTT Cue so formed are separated from the next by two or more line terminators. VTTEmptyCueBoxes are discarded.</p>
-<h3 class="heading no-num settled" id="6-8-example"><span class="content">6.8 Example</span></h3>
-<h4 class="heading no-num settled" id="6-8-1-source-file"><span class="content">6.8.1 Source file</span></h4>
+<h3 class="heading no-num settled" id="6-8-example"><span class="content">6.8 Example</span><a class="self-link" href="#6-8-example"></a></h3>
+<h4 class="heading no-num settled" id="6-8-1-source-file"><span class="content">6.8.1 Source file</span><a class="self-link" href="#6-8-1-source-file"></a></h4>
 <pre>WEBVTT
 
 1
@@ -3452,7 +3708,7 @@ We are looking straight down 5th Avenue.
 00:17.000 --&gt; 00:20.000
 Testing... &lt;00:17.350&gt;One... &lt;00:18.125&gt;Two...
 </pre>
-<h4 class="heading no-num settled" id="6-8-2-imported-format"><span class="content">6.8.2 Imported format</span></h4>
+<h4 class="heading no-num settled" id="6-8-2-imported-format"><span class="content">6.8.2 Imported format</span><a class="self-link" href="#6-8-2-imported-format"></a></h4>
 <p>For the example above, the cues might be represented by the following samples:</p>
 <p><em>Sample 0, duration 11.000</em></p>
 <p data-word-style="Body Text indent 1" style="margin-left:20.15pt;margin-bottom:12pt;font-size:11pt"><code>[emptycue]</code></p>
@@ -3468,12 +3724,12 @@ Testing... &lt;00:17.350&gt;One... &lt;00:18.125&gt;Two...
 <p data-word-style="Body Text indent 1" style="margin-left:20.15pt;margin-bottom:12pt;font-size:11pt"><code>[cue, id=2, payload=”Testing... &lt;00:17.350&gt;One... &lt;00:18.125&gt;Two...”, source_id=23, cue_current_time=”00:17.000”]</code></p>
 <p><em>Sample 5, duration 2.000</em></p>
 <p data-word-style="Body Text indent 1" style="margin-left:20.15pt;margin-bottom:12pt;font-size:11pt"><code>[cue, id=2, payload=”Testing... &lt;00:17.350&gt;One... &lt;00:18.125&gt;Two...”, source_id=23, cue_current_time=”00:18.000”]</code></p>
-<h2 class="heading no-num settled" data-word-style="ANNEX" id="annex-a-informative-captioning-information-embedded-in-a-media-stream-of-another-type" style="page-break-before:always"><span class="content">Annex A (informative) — Captioning information embedded in a media stream of another type</span></h2>
+<h2 class="heading no-num settled" data-word-style="ANNEX" id="annex-a-informative-captioning-information-embedded-in-a-media-stream-of-another-type" style="page-break-before:always"><span class="content">Annex A (informative) — Captioning information embedded in a media stream of another type</span><a class="self-link" href="#annex-a-informative-captioning-information-embedded-in-a-media-stream-of-another-type"></a></h2>
 <p>It is possible to carry captioning information embedded in a media stream of another type; the most notable example of this technique is the carriage of ANSI/CTA-708-E data in supplemental enhancement information (SEI) messages, as defined in ANSI/SCTE 128-1.</p>
 <p>This embedding technique is an important interoperability point, as there are many terminals and deployments using this captioning. However, it has a number of drawbacks, and it is not recommended for new deployments.</p>
 <p>The expressive capability of this technique is limited. In addition, because the data is effectively carried character-by-character, the format is ill-suited to searching or being used to build indexes. This character-by-character nature also means that clean random access is not well-defined; there are no well-defined entry points (‘sync points’), nor is there a defined ‘pre-roll’ distance, to ensure that the correct captions are displayed at any given point. It is also limited in the expressive capability of its tagging, especially in language identification using ISO 639-2 only (modern practice allows for identification of scripts, locales, and so on).</p>
 <p>Most seriously, when captions are embedded into a media stream in this way, their presence and characteristics are not evident from simple inspection of the file itself: in the absence of external information, the file must be scanned in its entirety to discover what captions are present. There is no equivalent to the detection of the presence of a subtitle or text track, and there is no MIME parameter such as the '<code>codecs</code>' parameter that <span class="rfc-keyword">can</span> indicate the presence of captions in the file. This makes such files unsuitable for use in environments where the presence of captions needs to be detected by inspecting a file or its MIME type. The typical practice is that these files are used in managed environments where the presence of captions, and their characteristics, is known by some out-of-band information such as a content management database, or manifest. ANSI/CTA-708:2013, 4.5 defines the out-of-band metadata signalling requirements.</p>
-<h2 class="heading no-num settled" data-word-style="Biblio Title" id="bibliography" style="page-break-before:always"><span class="content">Bibliography</span></h2>
+<h2 class="heading no-num settled" data-word-style="Biblio Title" id="bibliography" style="page-break-before:always"><span class="content">Bibliography</span><a class="self-link" href="#bibliography"></a></h2>
 <ul class="bibliography">
 <li data-word-style="Biblio Entry" style="margin-left:33.1pt;text-indent:-33.1pt">[1]	ISO/IEC 14496-18, Information technology — Coding of audio-visual objects — Part 18: Font compression and streaming
     </li><li data-word-style="Biblio Entry" style="margin-left:33.1pt;text-indent:-33.1pt">[2]	SMPTE ST 2052-1:2013, Timed Text Format (SMPTE-TT)
@@ -3487,7 +3743,7 @@ Testing... &lt;00:17.350&gt;One... &lt;00:18.125&gt;Two...
 </main>
 <div data-fill-with="conformance">
 <h2 class="heading no-num no-ref settled" id="conformance"><span class="content">
-    Conformance</span></h2>
+    Conformance</span><a class="self-link" href="#conformance"></a></h2>
 <p>
             Conformance requirements are expressed with a combination of descriptive assertions and RFC 2119 terminology.
             The key words “<span class="rfc-keyword">MUST</span>”, “<span class="rfc-keyword">MUST NOT</span>”, “<span class="rfc-keyword">REQUIRED</span>”, “<span class="rfc-keyword">SHALL</span>”, “<span class="rfc-keyword">SHALL NOT</span>”, “<span class="rfc-keyword">SHOULD</span>”, “<span class="rfc-keyword">SHOULD NOT</span>”, “<span class="rfc-keyword">RECOMMENDED</span>”, “<span class="rfc-keyword">MAY</span>”, and “<span class="rfc-keyword">OPTIONAL</span>”
@@ -3646,8 +3902,8 @@ Testing... &lt;00:17.350&gt;One... &lt;00:18.125&gt;Two...
 
 })();
 </script>
-<h2 class="heading no-num no-ref settled" id="index"><span class="content">Index</span></h2>
-<h3 class="heading no-num no-ref settled" id="index-defined-here"><span class="content">Terms defined by this specification</span></h3>
+<h2 class="heading no-num no-ref settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
+<h3 class="heading no-num no-ref settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
 <ul class="index">
 <li><a href="#term-3-1-4">internal timing value</a><span>, in § Unnumbered section</span>
 </li><li><a href="#term-3-1-3">subtitle stream</a><span>, in § Unnumbered section</span>
@@ -3656,8 +3912,8 @@ Testing... &lt;00:17.350&gt;One... &lt;00:18.125&gt;Two...
 </li><li><a href="#term-3-1-2">timed text stream</a><span>, in § Unnumbered section</span>
 </li><li><a href="#term-3-1-5">timed text track</a><span>, in § Unnumbered section</span>
 </li></ul>
-<h2 class="heading no-num no-ref settled" id="references"><span class="content">References</span></h2>
-<h3 class="heading no-num no-ref settled" id="normative"><span class="content">Normative References</span></h3>
+<h2 class="heading no-num no-ref settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
+<h3 class="heading no-num no-ref settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
 <dl>
 <dt id="biblio-rfc2119">[RFC2119]
    </dt><dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
