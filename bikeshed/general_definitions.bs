@@ -55,6 +55,8 @@ For sections of the track timeline that have no associated subtitles or timed te
 The <code>timescale</code> field in the media header box should be set appropriately to achieve the desired timing accuracy. It is recommended to be set to the value of the <code>timescale</code> field in the media header box of (one of) the associated track(s).
 
 
+NOTE: As specified in ISO/IEC 14496-12, when movie fragments are used, if the decode time of a sample is not equal to the decode time of the previous sample plus its duration, the duration of that previous sample is extended. As a consequence, a timed text sample duration can be extended. Hence, timed text sample processors are expected to keep processing the document of the last processed sample until the next sample arrives, even if the sample duration is passed. Additionally, in this case, the end time of the document can either not be set or be set to the desired maximum duration that exceeds the initial sample duration.
+
 <h3 class="no-num" id="4-3-language">4.3 Language</h3>
 
 Timed text tracks should be marked with a suitable language in the media header box, indicating the audience for whom the track is appropriate. In the case where it is suitable for a single language, the media header must match that declared language. The value ‘mul’ may be used for a multi-lingual text.
@@ -74,3 +76,24 @@ Fonts not supplied with the content may be already present on the target system(
 <h3 class="no-num" id="4-5-associating-timed-text-tracks">4.5 Associating timed text tracks</h3>
 
 Timed text tracks may be explicitly or implicitly associated with other tracks in the file. They are explicitly associated with a track when the timed text track uses a track reference of type '<code>subt</code>' to that track, as defined in ISO/IEC 14496-12, or to a track in the same alternate group. If no '<code>subt</code>' track reference is used, the timed text track is said to be implicitly associated to all tracks in the file. In particular, if track groups are not used, the timed text track is associated to all tracks in the file. Association is used to indicate which track(s) a timed text track is intended to overlay and may be used to determine the desired rendered size when that information is not provided in the track header of the timed text track, as defined in subclause 4.1. Timed text and subtitle tracks may be associated with any type of track, including visual tracks (e.g. video tracks, graphics tracks, image tracks) or audio tracks as determined by some external context.
+
+
+<h3 class="no-num" id="4-6-maximum-period-of-activation">4.6 Maximum period of activation</h3>
+
+Box Type: ttma
+
+Container: XMLSubtitleSampleEntry of type stpc, or WVTTSampleEntry of type wvtc
+
+Mandatory: Yes, in those sample entries
+
+Quantity: Exactly one
+
+The TimedTextMaxActivationBox gives the maximum period of activation T_MPA used in 5.9 and 6.6.
+
+```c
+aligned(8) class TimedTextMaxActivationBox extends FullBox('ttma', version = 0, 0) {
+  unsigned int(32) max_activation_period;
+}
+```
+
+max_activation_period is T_MPA in the timescale of the media header box. It shall be greater than zero. It should correspond to 5 s, the value of T_MPA in ETSI EN 303 560.
